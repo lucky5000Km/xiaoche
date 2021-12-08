@@ -1,0 +1,28 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "group",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1158,
+          "chatroomUsernameInfo": {
+            "groupName": "测试模拟群2",
+            "chatroomUsername": "G38t4RkAoB8JIchoIs2lbeU1fzdIJdSnuzJPn61sdE4@cr4dev"
+          }
+        }
+      ]
+    }
+  }
+}

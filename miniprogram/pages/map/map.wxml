@@ -1,0 +1,7 @@
+<map longitude="{{longitude}}" enable-3D="true" enable-building="true" latitude="{{latitude}}" bindregionchange="changeMap" bindtap="clickMap" show-location="true" markers="{{markers}}" scale="14"
+polyline="{{polyline}}" show-compass="true" enable-traffic="true"
+></map>
+<view class="change_model" bindtap="changemodel">
+	<image src="../../asset/change.svg"></image>
+	<view>{{model==0?'转经纬度':'转地址'}}</view>
+</view>

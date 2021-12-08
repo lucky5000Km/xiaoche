@@ -1,0 +1,14 @@
+<image class="topimg" src="../../asset/top.svg"></image>
+<view class="tips">各位家长您好，下面是11月份各站点大概时间，如果近期因为路况时间差太大，就再调整时间。天气越来越冷，请大家每天按时到站接送孩子。冬天坐车孩子多，为了让每个孩子迟早到家，如果调头不方便的站点，还请大家能过路对面接孩子，感谢理解。</view>
+
+<view class="title"></view>
+<scroll-view scroll-y="true" style="height:300rpx;">
+<view class="info_model">
+	<view class="info_item" wx:for="{{stations}}" wx:key="_id">
+		<view>{{item.name}}</view>
+		<view>{{item.departure_time}}</view>
+	</view>
+</view>
+</scroll-view>
+<view class="tips">当前APP将获取您的定位，以便了解校车当前位置</view>
+<button class="mainbtn" bindtap="tomap">查看校车位置</button>

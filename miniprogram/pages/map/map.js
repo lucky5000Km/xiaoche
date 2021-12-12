@@ -175,7 +175,7 @@ Page({
       success (res) {
         if('student' === res.data){
           setInterval(() => {
-            this.getLastLocation()
+            that.getLastLocation()
           }, 30*1000);
         }else{
            //更新校车位置

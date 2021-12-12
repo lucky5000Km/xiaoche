@@ -3,8 +3,8 @@
 
 <view class="title"></view>
 
-<button class="mainbtn" bindtap="totime">我是家长</button>
-<button class="mainbtn" bindtap="tomap">我是老师</button>
+<button class="mainbtn" disabled="{{button_disable}}" bindtap="totime">我是家长</button>
+<button class="mainbtn" disabled="{{button_disable}}" bindtap="tomap">我是老师</button>
 <text>{{errmsg}}</text>
 <open-data type="groupName" open-gid="tGluMg43nhS3Y-2mf6__4HvL_Alkw"   binderror="getGroupNameFail">
 ></open-data>

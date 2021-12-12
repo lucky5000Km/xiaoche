@@ -4,6 +4,7 @@ const stationsAdd = require('./stations/init');
 const locations = require('./locations/index');
 const syncLocation = require('./locations/sync');
 const validGroup = require('./group/index');
+const getGroupId = require('./group/getid');
 
 
 exports.main = async (event, context) => {
@@ -21,6 +22,8 @@ exports.main = async (event, context) => {
     return await syncLocation.main(event,context);
   }else if (event.type === 'validGroup'){
     return await validGroup.main(event,context);
+  }else if (event.type === 'getGroupId'){
+    return await getGroupId.main(event,context);
   }else {
     return {
       code: -1

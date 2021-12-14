@@ -174,6 +174,7 @@ Page({
       key: 'role',
       success (res) {
         if('student' === res.data){
+          that.getLastLocation()
           setInterval(() => {
             that.getLastLocation()
           }, 30*1000);

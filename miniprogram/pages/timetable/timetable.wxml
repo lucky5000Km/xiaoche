@@ -1,8 +1,11 @@
-<image class="topimg" src="../../asset/top.svg"></image>
 <view class="tips">各位家长您好，下面是11月份各站点大概时间，如果近期因为路况时间差太大，就再调整时间。天气越来越冷，请大家每天按时到站接送孩子。冬天坐车孩子多，为了让每个孩子迟早到家，如果调头不方便的站点，还请大家能过路对面接孩子，感谢理解。</view>
 
 <view class="title"></view>
-<scroll-view scroll-y="true" style="height:300rpx;">
+<view style="border-bottom: solid 1px  rgba(224,224,224,0.50);">
+	<button id="btn_go" type="{{go ? 'primary' : 'default'}}"  bindtap="gotable" style="width: 168rpx; height: 77rpx; display: block; box-sizing: border-box; left: 74rpx; top: 77rpx; position: relative">上学</button>
+	<button id="btn_back"    type="{{!go ? 'primary' : 'default'}}" bindtap="backtable" style="width: 168rpx; height: 77rpx; display: block; box-sizing: border-box; left: 241rpx; top: 0rpx; position: relative">回家</button>
+</view>
+<scroll-view scroll-y="true" style="height:60vh">
 <view class="info_model">
 	<view class="info_item" wx:for="{{stations}}" wx:key="_id">
 		<view>{{item.name}}</view>
@@ -10,5 +13,5 @@
 	</view>
 </view>
 </scroll-view>
-<view class="tips">当前APP将获取您的定位，以便了解校车当前位置</view>
 <button class="mainbtn" bindtap="tomap">查看校车位置</button>
+<view class="tips">当前APP将获取您的定位，以便了解校车当前位置</view>

@@ -99,17 +99,7 @@ Page({
     }).catch((e) => {
         console.log(e);
     });
-    //初始化站点
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'stationsAdd'
-      }
-      }).then((resp) => {       
-        console.log('get cartitem'+JSON.stringify(resp))
-    }).catch((e) => {
-        console.log(e);
-    });
+   
     }
     
 

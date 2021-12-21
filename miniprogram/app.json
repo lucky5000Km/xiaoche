@@ -2,7 +2,8 @@
 	"pages": [
 		"pages/index/index",
 		"pages/timetable/timetable",
-		"pages/map/map"
+		"pages/map/map",
+		"pages/login/login"
 	],
 	"permission": {
 		"scope.userLocation": {

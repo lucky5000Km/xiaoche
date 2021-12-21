@@ -114,7 +114,8 @@ Page({
       data:"school"
     })
     wx.navigateTo({
-      url: '../map/map'
+      //url: '../map/map'
+      url: '../login/login'
     })
   },
   totime () {
@@ -128,8 +129,8 @@ Page({
   },
   onShareAppMessage () {
     return {
-      title: '快来使用LBS定位小工具',
-      imageUrl: '../../asset/logo.png'
+      title: '看看校车到哪里了',
+      imageUrl: '../../asset/logo.jpg'
     }
   }
 })

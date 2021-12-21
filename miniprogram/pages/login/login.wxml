@@ -1,0 +1,27 @@
+<image class="topimg" src="../../asset/logo.jpg"></image>
+
+<view class="container">
+  <view class="page-body">
+
+
+		<view class="title"></view>
+
+		<view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" type="nickname" auto-focus placeholder="用户名" value="{{username}}" bindinput="usernameInput"/>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" password="true" maxlength="10" placeholder="密码" value="{{password}}" bindinput="passwordInput" />
+      </view>
+    </view>
+  </view>
+	<button class="mainbtn" disabled="{{button_disable}}" bindtap="login">登录</button>
+
+	</view>
+</view>

@@ -5,6 +5,7 @@ const locations = require('./locations/index');
 const syncLocation = require('./locations/sync');
 const validGroup = require('./group/index');
 const getGroupId = require('./group/getid');
+const user = require('./user/index');
 
 
 exports.main = async (event, context) => {
@@ -24,6 +25,8 @@ exports.main = async (event, context) => {
     return await validGroup.main(event,context);
   }else if (event.type === 'getGroupId'){
     return await getGroupId.main(event,context);
+  }else if (event.type === 'user'){
+    return await user.main(event,context);
   }else {
     return {
       code: -1

@@ -28,21 +28,49 @@ Page({
     })
     wx.navigateTo({
       url: '../map/map'
-
+    })
+  },
+  totime () {
+    wx.setStorage({
+      key:"role",
+      data:"student"
+    })
+    wx.navigateTo({
+      url: '../timetable/timetable'
     })
   },
   login () {
     console.log('username:'+this.data.username+', password:'+this.data.password)
-    if('admin' == this.data.username && '123456' == this.data.password){
-      console.log('login success')
-      this.tomap()
-    }else{
-      wx.showModal({
-        title: '登录失败',
-        showCancel:false,
-        content:'用户名密码错误'
-      })
-    }
+
+    wx.cloud.callFunction({
+      name: 'lbs_server',
+      data: {
+        type: 'user',
+        username:this.data.username,
+        password: this.data.password
+      }
+      }).then((resp) => {
+        console.log('get user '+JSON.stringify(resp))
+        if(resp.result.data.length == 1){
+          if("ADMIN" === resp.result.data[0].type){
+            this.tomap()
+          }else{
+            this.totime()
+          }
+          
+        }else{
+          wx.showModal({
+            title: '登录失败',
+            showCancel:false,
+            content:'用户名密码错误'
+          })
+        }
+        
+    }).catch((e) => {
+        console.log(e);
+    });
+
+
   },
   
   onShareAppMessage () {

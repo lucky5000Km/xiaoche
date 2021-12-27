@@ -1,0 +1,9 @@
+<image class="topimg" src="../../asset/logo.jpg"></image>
+
+<view class="container">
+  <view class="page-body">
+
+	<button class="mainbtn"  bindtap="logout">退出登录</button>
+
+	</view>
+</view>

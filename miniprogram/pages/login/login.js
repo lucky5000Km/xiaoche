@@ -41,7 +41,7 @@ Page({
   },
   login () {
     console.log('username:'+this.data.username+', password:'+this.data.password)
-
+    
     wx.cloud.callFunction({
       name: 'lbs_server',
       data: {
@@ -51,12 +51,25 @@ Page({
       }
       }).then((resp) => {
         console.log('get user '+JSON.stringify(resp))
+        var user  = resp.result.data;
         if(resp.result.data.length == 1){
-          if("ADMIN" === resp.result.data[0].type){
-            this.tomap()
-          }else{
-            this.totime()
-          }
+          wx.setStorage({
+            key: "token",
+            data: user[0],
+            encrypt: true,
+            success(){
+              wx.getStorage({
+                key:"token",
+                success(res){
+                  console.log('get user info '+JSON.stringify(res.data))
+                  wx.redirectTo({
+                    url: '../index/index',
+                  })
+                }
+              })
+            }
+          })
+          
           
         }else{
           wx.showModal({
@@ -75,8 +88,8 @@ Page({
   
   onShareAppMessage () {
     return {
-      title: '快来使用LBS定位小工具',
-      imageUrl: '../../asset/logo.png'
+      title: '看看校车到哪里了',
+      imageUrl: '../../asset/logo.jpg'
     }
   }
 })

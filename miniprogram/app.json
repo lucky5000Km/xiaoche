@@ -3,7 +3,14 @@
 		"pages/index/index",
 		"pages/timetable/timetable",
 		"pages/map/map",
-		"pages/login/login"
+		"pages/login/login",
+		"pages/stations/stations",
+		"pages/stationinfo/stationinfo",
+		"pages/my/my",
+		"pages/stationsproxy/stationsproxy"
+
+
+
 	],
 	"permission": {
 		"scope.userLocation": {
@@ -16,6 +23,24 @@
 		"navigationBarTitleText": "校车时刻",
 		"navigationBarTextStyle": "black"
 	},
+	"tabBar": {
+    "list": [{
+      "pagePath": "pages/map/map",
+			"text": "校车",
+			"iconPath": "asset/location.png",
+			"selectedIconPath": "asset/location-active.png"
+    }, {
+      "pagePath": "pages/stationsproxy/stationsproxy",
+			"text": "站点",
+			"iconPath": "asset/station.png",
+			"selectedIconPath": "asset/station-active.png"
+    },{
+      "pagePath": "pages/my/my",
+			"text": "我的",
+			"iconPath": "asset/my.png",
+			"selectedIconPath": "asset/my-active.png"
+    }]
+  },
 	"style": "v2",
 	"sitemapLocation": "sitemap.json"
 }

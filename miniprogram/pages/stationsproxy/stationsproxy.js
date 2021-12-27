@@ -11,8 +11,22 @@ Page({
 
   },
   onLoad(){
-    this.validLogin()
-    
+    console.log('load proxy...')
+    wx.getStorage({
+      key: 'token',
+      success (res) {
+        console.log(res.data)
+        if(res.data.type === 'ADMIN'){
+          wx.redirectTo({
+            url: '../stations/stations',
+          })
+        }else if(res.data.type === 'PARENT'){
+          wx.redirectTo({
+            url: '../timetable/timetable',
+          })
+        }
+      }
+    })
 
   },
   //检查是否有群访问限制

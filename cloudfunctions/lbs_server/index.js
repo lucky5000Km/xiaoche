@@ -1,6 +1,7 @@
 const work = require('./work') // 引入work文件模块
 const stations = require('./stations/index');
 const stationsAdd = require('./stations/init');
+const stationsUpdate = require('./stations/update');
 const locations = require('./locations/index');
 const syncLocation = require('./locations/sync');
 const validGroup = require('./group/index');
@@ -27,6 +28,8 @@ exports.main = async (event, context) => {
     return await getGroupId.main(event,context);
   }else if (event.type === 'user'){
     return await user.main(event,context);
+  }else if (event.type === 'stationsUpdate'){
+    return await stationsUpdate.main(event,context);
   }else {
     return {
       code: -1

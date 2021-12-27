@@ -1,11 +1,8 @@
 <image class="topimg" src="../../asset/logo.jpg"></image>
 
 
-<view class="title"></view>
-
+<view class="title">{{errmsg}}</view>
+<!--
 <button class="mainbtn" disabled="{{button_disable}}" bindtap="totime">我是家长</button>
 <button class="mainbtn" disabled="{{button_disable}}" bindtap="tomap">我是老师</button>
-<text>{{errmsg}}</text>
-<open-data type="groupName" open-gid="tGluMg43nhS3Y-2mf6__4HvL_Alkw"   binderror="getGroupNameFail">
-></open-data>
-<open-data type="userGender" lang="zh_CN"></open-data>
+-->

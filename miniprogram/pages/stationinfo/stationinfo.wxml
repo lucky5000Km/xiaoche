@@ -1,0 +1,30 @@
+<map longitude="{{longitude}}" enable-3D="true" enable-building="true" latitude="{{latitude}}" bindregionchange="changeMap" bindtap="clickMap" show-location="true" markers="{{[marker]}}"></map>
+<view class="change_model" bindtap="changemodel">
+	<image src="../../asset/change.svg"></image>
+	<view>获取当前位置</view>
+</view>
+<view class="fixed_model">
+	<view class="title">拖动地图上的图标到指定站点位置，点击按钮保存</view>
+</view>
+<view class="info_model">
+	<view class="info_item">
+		<view>站点名称</view>
+		<view>{{info.formatted}}</view>
+	</view>
+	<view class="info_item">
+		<view>经纬度</view>
+		<view>{{info.location}}</view>
+	</view>
+	<!--
+	<view class="info_item">
+		<view>常规地址</view>
+		<view>{{info.address}}</view>
+	</view>-->
+	<view class="info_item">
+		<view>到站时间</view>
+		<view>{{info.adinfo}}</view>
+	</view>
+
+	<button class="mainbtn" bindtap="uploadLocation">保存位置</button>
+
+</view>

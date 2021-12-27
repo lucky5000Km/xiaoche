@@ -6,9 +6,6 @@ Page({
     go:true
   },
   onLoad(){
-    wx.showTabBar({
-      animation: true,
-    })
     var that = this;
     wx.cloud.callFunction({
       name: 'lbs_server',
@@ -31,7 +28,16 @@ Page({
     console.log('get ori '+this.data.ori_stations)
     this.gotable()
   },
-
+  updateStation(event){
+    console.log('click me '+JSON.stringify(event.currentTarget.dataset.item))
+  },
+  toStation(event){
+    var item = event.currentTarget.dataset.item
+    var params = '?_id='+item._id+"&name="+item.name+'&departure_time='+item.departure_time+'&latitude='+item.latitude+'&longitude='+item.longitude
+    wx.navigateTo({
+      url: '../stationinfo/stationinfo'+params,
+    })
+  },
   tomap () {
     wx.switchTab({
       url: '../map/map'
@@ -43,7 +49,13 @@ Page({
     }).sort(function(a,b){
       return a.detail.go.order - b.detail.go.order
     }).map(function(item){
-      return {"name":item.name,"departure_time":item.detail.go.time}
+      return {
+        "name":item.name,
+        "departure_time":item.detail.go.time,
+        "_id":item._id,
+        "latitude":item.latitude,
+        "longitude":item.longitude
+      }
     })
 
     console.log('cal statiosn '+JSON.stringify(goStations))
@@ -59,7 +71,13 @@ Page({
     }).sort(function(a,b){
       return a.detail.back.order - b.detail.back.order
     }).map(function(item){
-      return {"name":item.name,"departure_time":item.detail.back.time}
+      return {
+        "name":item.name,
+        "departure_time":item.detail.back.time,
+        "_id":item._id,
+        "latitude":item.latitude,
+        "longitude":item.longitude
+      }
     })
 
 

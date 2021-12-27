@@ -1,0 +1,16 @@
+
+<view style="border-bottom: solid 1px  rgba(224,224,224,0.50);">
+	<button id="btn_go" type="{{go ? 'primary' : 'default'}}"  bindtap="gotable" style="width: 168rpx; height: 77rpx; display: block; box-sizing: border-box; left: 74rpx; top: 77rpx; position: relative">上学</button>
+	<button id="btn_back"    type="{{!go ? 'primary' : 'default'}}" bindtap="backtable" style="width: 168rpx; height: 77rpx; display: block; box-sizing: border-box; left: 241rpx; top: 0rpx; position: relative">回家</button>
+</view>
+<scroll-view scroll-y="true" style="height:60vh">
+<view class="info_model">
+	<view class="info_item" wx:for="{{stations}}" wx:key="_id">
+		<view>{{item.name}}</view>
+		<view>{{item.departure_time}}</view>
+		<view><button type="warn" size="mini" style="font-size:small;" data-item="{{item}}" bindtap="toStation">更新位置</button></view>
+	</view>
+</view>
+</scroll-view>
+<button class="mainbtn" bindtap="tomap">预览站点</button>
+<view class="tips">当前APP将获取您的定位，以便了解校车当前位置</view>

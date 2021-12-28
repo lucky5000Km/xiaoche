@@ -1,6 +1,7 @@
 const app = getApp() // 获取全局APP对象
 let that = null // 页面this指针变量
 let total = 0 //站点数量
+let count = 0;
 Page({
   data: { // 默认数据
     lastUpdateLocationDate: null,
@@ -83,7 +84,7 @@ Page({
         console.log(e);
     });
     
-    
+    count++
 
   },
 
@@ -158,6 +159,7 @@ Page({
           that.getLastLocation()
           setInterval(() => {
             that.getLastLocation()
+            console.log('count:'+count)
           }, 5*1000);
         }else{
            //更新校车位置
@@ -225,7 +227,14 @@ Page({
       [e.currentTarget.dataset.key]: e.detail.value
     })
   },
-  
+  /**
+   * 改变输入框类型
+   */
+  changemodel () {
+    that.setData({
+      model: that.data.model === 0 ? 1 : 0 // 如果为0则设置1，如果为1则设置0
+    })
+  },
   onShareAppMessage () {
     return {
       title: '看看校车到哪里了',

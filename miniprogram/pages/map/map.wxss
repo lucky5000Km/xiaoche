@@ -45,24 +45,24 @@ map{
 	background: #FFFFFF;
 	box-shadow: 0 4rpx 30rpx -4rpx rgba(0,0,0,0.14), 0 4rpx 4rpx -4rpx rgba(0,0,0,0.13);
 	border-radius: 10rpx;
-	width: 202rpx;
-	height: 48rpx;
+	width: 240rpx;
+	height: 60rpx;
 	display: flex;
 	padding: 10rpx;
 	position: absolute;
-    top: 469rpx;
-    right: 30rpx;
+    top: 10rpx;
+		left: 30rpx;
 }
 .change_model image{
 	width: 48rpx;
 	height: 48rpx;
 }
 .change_model view{
-	font-size: 28rpx;
-	color: var(--mb-color);
+	font-size: 30rpx;
+	color: #000;
 	letter-spacing: 0;
 	text-align: right;
-	font-weight: 400;
+	font-weight: 600;
 	margin: auto;
 }
 .info_model{

@@ -1,9 +1,10 @@
 <map longitude="{{longitude}}" enable-3D="true" enable-building="true" latitude="{{latitude}}" bindregionchange="changeMap" bindtap="clickMap" show-location="true" markers="{{markers}}" scale="14"
 polyline="{{polyline}}" show-compass="true" enable-traffic="true"
 ></map>
-<!--
+
 <view class="change_model" bindtap="changemodel">
-	<image src="../../asset/change.svg"></image>
-	<view style="font-size:large;font-weight: 800; color:orange;">{{model==0?'上学':'回家'}}</view>
+	 <image wx:if="{{model == 0}}" src="../../asset/switch.svg"></image>
+	 <image wx:if="{{model == 1}}" src="../../asset/switch-off.svg"></image>
+
+	<view >{{model==0?'开始上报位置':'停止上报位置'}}</view>
 </view>
--->

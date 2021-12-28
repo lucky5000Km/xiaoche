@@ -10,6 +10,7 @@ Page({
     location: '', // 经纬度输入框
     address: '', // 地址输入框
     model: 0, // 模式转换 0-地址输入，1-经纬度输入
+    role:'PARENT',
     marker: { // 地图当前标记点
       id: 0, // 标记点ID，不用变更
       latitude: 40.06445, // 标记点所在纬度
@@ -161,7 +162,11 @@ Page({
             that.getLastLocation()
             console.log('count:'+count)
           }, 5*1000);
-        }else{
+        }else if('DRIVER' === res.data){
+          console.log('get role of driver ,begin to upload position')
+            that.setData({
+              role: 'SCHOOL'
+            })
            //更新校车位置
             wx.onLocationChange(function(res) {
               console.log('location change'+that.data.lastUpdateLocationDate+','+new Date(), res)

@@ -2,9 +2,9 @@
 polyline="{{polyline}}" show-compass="true" enable-traffic="true"
 ></map>
 
-<view class="change_model" bindtap="changemodel">
-	 <image wx:if="{{model == 0}}" src="../../asset/switch.svg"></image>
-	 <image wx:if="{{model == 1}}" src="../../asset/switch-off.svg"></image>
+<view wx:if="{{role == 'PARENT'}}" class="change_model" bindtap="changemodel">
+	 <image wx:if="{{model == 0 }}" src="../../asset/switch.svg"></image>
+	 <image wx:if="{{model == 1 }}" src="../../asset/switch-off.svg"></image>
 
-	<view >{{model==0?'开始上报位置':'停止上报位置'}}</view>
+	<view >{{model==0?' 开始上报位置':' 停止上报位置'}}</view>
 </view>

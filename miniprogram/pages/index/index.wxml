@@ -1,8 +1,14 @@
 <image class="topimg" src="../../asset/logo.jpg"></image>
 
 
-<view class="title">{{errmsg}}</view>
-<!--
-<button class="mainbtn" disabled="{{button_disable}}" bindtap="totime">我是家长</button>
-<button class="mainbtn" disabled="{{button_disable}}" bindtap="tomap">我是老师</button>
--->
+<view class="title">{{errmsg}}
+  <button class="mainbtn" wx:if="{{errmsg != ''}}"  bindtap="toLogin">通过账号登录</button>
+</view>
+
+<view class="userinfo" wx:if="{{showUserInfo}}">
+    <block wx:if="{{!hasUserInfo}}">
+      <button class="mainbtn"  wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 微信登录 </button>
+      <button class="mainbtn"  wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登录 </button>
+      <button class="mainbtn"  bindtap="toLogin">账号登录</button>
+    </block>
+  </view>

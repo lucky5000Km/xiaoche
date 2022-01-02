@@ -7,6 +7,11 @@ const syncLocation = require('./locations/sync');
 const validGroup = require('./group/index');
 const getGroupId = require('./group/getid');
 const user = require('./user/index');
+const getOpenId = require('./user/getOpenId');
+const getUser = require('./user/getUser');
+const addUser = require('./user/addUser');
+
+const configs = require('./configs/index');
 
 
 exports.main = async (event, context) => {
@@ -30,6 +35,14 @@ exports.main = async (event, context) => {
     return await user.main(event,context);
   }else if (event.type === 'stationsUpdate'){
     return await stationsUpdate.main(event,context);
+  }else if (event.type === 'configs'){
+    return await configs.main(event,context);
+  }else if (event.type === 'getOpenId'){
+    return await getOpenId.main(event,context);
+  }else if (event.type === 'getUser'){
+    return await getUser.main(event,context);
+  }else if (event.type === 'addUser'){
+    return await addUser.main(event,context);
   }else {
     return {
       code: -1

@@ -46,10 +46,16 @@ App({
       wx.cloud.callFunction({
         name: 'lbs_server',
         data: {
-          type: 'stationsAdd'
+          type: 'configs'
         }
         }).then((resp) => {       
-          console.log('get cartitem'+JSON.stringify(resp))
+          console.log('获取配置信息'+JSON.stringify(resp))
+          resp.result.data.forEach(element => {
+            wx.setStorage({
+              key:element.key,
+              data: element
+            })
+          });
       }).catch((e) => {
           console.log(e);
       });

@@ -56,35 +56,62 @@ Page({
   },
 
   getLastLocation(){
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'locations'
-      }
-      }).then((resp) => { 
-        console.log('get locations'+JSON.stringify(resp))
-        var schoolbus = {
-          'latitude' : resp.result.data.lat,
-          'longitude' : resp.result.data.lon,
-          'iconPath': '../../asset/bus.png',
-          'zIndex': 100
-        }
-        var newMarkers =  this.data.markers
-        if(total == newMarkers.length){
-          newMarkers.push(schoolbus)
-        }else{
-          newMarkers.pop()
-          newMarkers.push(schoolbus)
-        }
-        this.setData({
-          markers: newMarkers
-        })
-        
+    let isOpen = false
+    wx.getStorage({
+      key: 'open_time',
+      success (res) {
+        console.log(res.data)
+        var date = new Date()
+        var items = res.data.value
+        for(var e in items){
+          console.log('e:'+e)
+          var begin = items[e].begin.split(':')
+          var beginTime = date.setHours(begin[0],begin[1],0);
+          var end = items[e].end.split(':')
+          var endTime = date.setHours(end[0],end[1],0);
+          var now = new Date().getTime()
+          if(now >= beginTime && now <= endTime){
 
-    }).catch((e) => {
-        console.log(e);
-    });
-    
+            console.log('命中运营时间')
+            //begin
+            wx.cloud.callFunction({
+              name: 'lbs_server',
+              data: {
+                type: 'locations'
+              }
+              }).then((resp) => { 
+                console.log('get locations'+JSON.stringify(resp))
+                var schoolbus = {
+                  'latitude' : resp.result.data.lat,
+                  'longitude' : resp.result.data.lon,
+                  'iconPath': '../../asset/bus.png',
+                  'zIndex': 100
+                }
+                var newMarkers =  this.data.markers
+                if(total == newMarkers.length){
+                  newMarkers.push(schoolbus)
+                }else{
+                  newMarkers.pop()
+                  newMarkers.push(schoolbus)
+                }
+                this.setData({
+                  markers: newMarkers
+                })
+                
+        
+            }).catch((e) => {
+                console.log(e);
+            });
+            //end
+
+
+            break
+          } 
+        }
+      }
+    })
+
+
     count++
 
   },

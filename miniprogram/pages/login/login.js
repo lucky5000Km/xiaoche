@@ -1,12 +1,13 @@
 const app = getApp()
+let that = null
 Page({
   data: {
     username: '',
     password:'',
+    button_disable:false
   },
   onLoad(){
-    var that = this;
-    
+    that = this
   },
   onReady(){
   },
@@ -41,7 +42,12 @@ Page({
   },
   login () {
     console.log('username:'+this.data.username+', password:'+this.data.password)
-    
+    wx.showLoading({
+      title: '登录中...',
+    })
+    that.setData({
+      button_disable:true
+    })
     wx.cloud.callFunction({
       name: 'lbs_server',
       data: {
@@ -50,6 +56,7 @@ Page({
         password: this.data.password
       }
       }).then((resp) => {
+        wx.hideLoading()
         console.log('get user '+JSON.stringify(resp))
         var user  = resp.result.data;
         if(resp.result.data.length == 1){
@@ -76,6 +83,9 @@ Page({
             title: '登录失败',
             showCancel:false,
             content:'用户名密码错误'
+          })
+          that.setData({
+            button_disable: false
           })
         }
         

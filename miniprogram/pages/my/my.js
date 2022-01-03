@@ -1,44 +1,29 @@
 const app = getApp()
 Page({
   data: {
-    username: '',
-    password:'',
+   userInfo:{}
   },
   onLoad(){
     var that = this;
-    
+    wx.cloud.callFunction({
+      name: 'lbs_server',
+      data: {
+        type: 'getUser',
+      }
+      }).then((resp) => {
+        console.log('get user info '+JSON.stringify(resp))
+        if(resp.result.data.length>0){
+          this.setData({
+            userInfo:resp.result.data[0]
+          })
+        }
+    }).catch((e) => {
+        console.log(e);
+    });// end valid wechat
   },
   onReady(){
   },
 
-  usernameInput: function(e){
-    this.setData({
-      username: e.detail.value
-    })
-  },
-  passwordInput: function(e){
-    this.setData({
-      password: e.detail.value
-    })
-  },
-  tomap () {
-    wx.setStorage({
-      key:"role",
-      data:"school"
-    })
-    wx.navigateTo({
-      url: '../map/map'
-    })
-  },
-  totime () {
-    wx.setStorage({
-      key:"role",
-      data:"student"
-    })
-    wx.navigateTo({
-      url: '../timetable/timetable'
-    })
-  },
   logout () {
     wx.removeStorage({
       key: 'token',
@@ -49,7 +34,7 @@ Page({
           duration: 3000,
           success(){
             wx.redirectTo({
-              url: '../login/login'
+              url: '../index/index'
             })
           }
         })

@@ -10,52 +10,102 @@ Page({
     hasUserInfo: false,
     canIUseGetUserProfile: false,
     openId:'',
-    showUserInfo:false
+    showUserInfo:false,
+    kidName:''
 
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
-    // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+  wechatLogin(){
+     //判断是否微信用户
+     wx.cloud.callFunction({
+      name: 'lbs_server',
+      data: {
+        type: 'getUser',
+      }
+      }).then((resp) => {
+        console.log('get user info '+JSON.stringify(resp))
+        if(resp.result.data.length == 0){
+          that.getUserProfile()
+        }else{
+          that.validUser(resp.result.data)
+        }
+    }).catch((e) => {
+        console.log(e);
+        wx.showToast({
+          title: '系统出错了，请稍候再试',
+          icon:'error'
         })
+    });// end valid wechat
+    
+    
+  },
+  getUserProfile(e) {
+    wx.showModal({
+      title: '提示',
+      editable:true,
+      placeholderText:'输入宝贝名字',
+      //content: '这是一个模态弹窗',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定 %s ',res.content)
+          if(res.content.length== 0 || res.content.length > 10){
+            wx.showToast({ title: '请输入正确的名字', icon: 'error', duration: 2000 })   
+          }else{
+            that.setData({
+              kidName: res.content
+            })
+            // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+            // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+            wx.getUserProfile({
+              desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+              success: (res) => {
+                that.setData({
+                  userInfo: res.userInfo,
+                  hasUserInfo: true
+                })
 
-        // add user to db
-        wx.cloud.callFunction({
-          name: 'lbs_server',
-          data: {
-            type: 'addUser',
-            userInfo:res.userInfo
+                // add user to db
+                wx.cloud.callFunction({
+                  name: 'lbs_server',
+                  data: {
+                    type: 'addUser',
+                    userInfo:res.userInfo,
+                    kidName: that.data.kidName
+                  }
+                }).then((resp) => {
+                  console.log('add user ok')
+                  that.setData({
+                    errmsg:'账号审核中，请耐心等待'
+                  })
+                  wx.setStorage({
+                    key: "token",
+                    data: res.userInfo,
+                  })
+                  
+                  wx.showModal({
+                    title: '温馨提示',
+                    showCancel:false,
+                    content:'信息同步完成，快快联系工作人员审核账号吧'
+                  })
+                }).catch((e) => {
+                  wx.showModal({
+                    title: '温馨提示',
+                    showCancel:false,
+                    content:'系统出问题了，联系下工作人员吧'
+                  })
+                console.log(e)
+              });
+              }
+            })
           }
-        }).then((resp) => {
-          console.log('add user ok')
-          this.setData({
-            errmsg:'账号审核中，请耐心等待'
-          })
-          wx.setStorage({
-            key: "token",
-            data: res.userInfo,
-          })
-          
-          wx.showModal({
-            title: '温馨提示',
-            showCancel:false,
-            content:'信息同步完成，快快联系工作人员审核账号吧'
-          })
-        }).catch((e) => {
-          wx.showModal({
-            title: '温馨提示',
-            showCancel:false,
-            content:'系统出问题了，联系下工作人员吧'
-          })
-        console.log(e)
-      });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
+    
+
+
+    
   },
   
   getUserInfo(e) {
@@ -78,48 +128,7 @@ Page({
         canIUseGetUserProfile: true
       })
     }
-    /** 
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'getUser'
-      }
-    }).then((resp) => {
-      console.log('user info:%s',JSON.stringify(resp))
-      if(resp.result.data.length==0){
-        that.setData({
-          showUserInfo: true
-        })
-      }else{
-        var user = resp.result.data[0]
-        //判断用户是否冻结
-        if(user.disable){//冻结中
-          this.setData({
-            //userInfo: resp.result.data[0],
-            hasUserInfo:true,
-            showUserInfo:true,
-            errmsg:'账号审核中，请耐心等待'
-          });
-        }else{//可用,种token
-          wx.setStorage({
-            key: "token",
-            data: user,
-            encrypt: true,
-            success(){
-              wx.redirectTo({
-                url: '../index/index',
-              })
-            }
-          })
-        }
-
-        
-
-      }
-     wx.hideLoading();
-   }).catch((e) => {
-     wx.hideLoading();
-    });**/
+    
     this.validLogin()
     
 
@@ -197,10 +206,8 @@ Page({
           errmsg: '当前账号不可用，请联系工作人员'
         })
       }else{
-        wx.setStorage({
-          key:"role",
-          data:userList[0].type
-        })
+        wx.setStorageSync('role', userList[0].type)
+        wx.setStorageSync('token', userList[0])
         wx.switchTab({
           url: '../map/map'
         })
@@ -215,18 +222,7 @@ Page({
   },
   //检查有没有登录 
   validLogin(){
-    //判断是否微信用户
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'getUser',
-      }
-      }).then((resp) => {
-        console.log('get user info '+JSON.stringify(resp))
-        that.validUser(resp.result.data)
-    }).catch((e) => {
-        console.log(e);
-    });// end valid wechat
+   
     wx.getStorage({
       key:"token",
       success(res){
@@ -249,6 +245,24 @@ Page({
           });
         }
 
+        if(res.data.openid != ''){
+           //判断是否微信用户
+            wx.cloud.callFunction({
+              name: 'lbs_server',
+              data: {
+                type: 'getUser',
+              }
+              }).then((resp) => {
+                console.log('get user info '+JSON.stringify(resp))
+                that.validUser(resp.result.data)
+            }).catch((e) => {
+                console.log(e);
+                wx.showToast({
+                  title: '系统出错了，请稍候再试',
+                  icon:'error'
+                })
+            });// end valid wechat
+        }
         
 
         

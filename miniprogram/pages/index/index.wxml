@@ -5,9 +5,9 @@
   <button class="mainbtn" wx:if="{{errmsg != ''}}"  bindtap="toLogin">通过账号登录</button>
 </view>
 
-<view class="userinfo" wx:if="{{showUserInfo}}">
+<view class="userinfo" wx:if="{{showUserInfo && errmsg ==''}}">
     <block wx:if="{{!hasUserInfo}}">
-      <button class="mainbtn"  wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 微信登录 </button>
+      <button class="mainbtn"  wx:if="{{canIUseGetUserProfile}}" bindtap="wechatLogin"> 微信登录 </button>
       <button class="mainbtn"  wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登录 </button>
       <button class="mainbtn"  bindtap="toLogin">账号登录</button>
     </block>

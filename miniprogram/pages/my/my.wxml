@@ -1,8 +1,8 @@
-<image class="topimg" src="../../asset/logo.jpg"></image>
+<image class="topimg" style="width:60px;height:60px" src="{{userInfo.avatarUrl}}"></image>
 
 <view class="container">
   <view class="page-body">
-
+		<view>宝贝名字：{{userInfo.kid_name}}</view>
 	<button class="mainbtn"  bindtap="logout">退出登录</button>
 
 	</view>

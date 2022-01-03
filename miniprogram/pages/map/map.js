@@ -84,17 +84,20 @@ Page({
                 var schoolbus = {
                   'latitude' : resp.result.data.lat,
                   'longitude' : resp.result.data.lon,
-                  'iconPath': '../../asset/bus.png',
+                  //'iconPath': '../../asset/bus.png',
+                  'iconPath': '../../asset/schoolbus.svg',
+                  'width':30,
+                  'height':30,
                   'zIndex': 100
                 }
-                var newMarkers =  this.data.markers
+                var newMarkers =  that.data.markers
                 if(total == newMarkers.length){
                   newMarkers.push(schoolbus)
                 }else{
                   newMarkers.pop()
                   newMarkers.push(schoolbus)
                 }
-                this.setData({
+                that.setData({
                   markers: newMarkers
                 })
                 
@@ -103,8 +106,6 @@ Page({
                 console.log(e);
             });
             //end
-
-
             break
           } 
         }
@@ -185,10 +186,19 @@ Page({
       success (res) {
         if('PARENT' === res.data){
           that.getLastLocation()
+          var period = 30;
+          try {
+            var value = wx.getStorageSync('parent_getpos')
+            if (value) {
+              period = value.value.period;
+            }
+          } catch (e) {
+            // Do something when catch error
+          }
           setInterval(() => {
             that.getLastLocation()
             console.log('count:'+count)
-          }, 5*1000);
+          }, period*1000);
         }else if('DRIVER' === res.data){
           console.log('get role of driver ,begin to upload position')
             that.setData({
@@ -197,9 +207,18 @@ Page({
            //更新校车位置
             wx.onLocationChange(function(res) {
               console.log('location change'+that.data.lastUpdateLocationDate+','+new Date(), res)
+              var carPeriod  = 5
+              try {
+                var value = wx.getStorageSync('upload_position')
+                if (value) {
+                  carPeriod = value.value.period;
+                }
+              } catch (e) {
+                // Do something when catch error
+              }
               var current = new Date()
               var diff = (current - that.data.lastUpdateLocationDate) / 1000
-              if(diff >= 5){
+              if(diff >= carPeriod){
                 that.setData({
                   lastUpdateLocationDate: current
                 })

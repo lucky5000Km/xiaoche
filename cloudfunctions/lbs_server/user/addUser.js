@@ -14,6 +14,7 @@ exports.main = async (event, context) => {
       openid:wxContext.OPENID,
       nickName:event.userInfo.nickName,
       avatarUrl:event.userInfo.avatarUrl,
+      kid_name: event.kidName,
       type: 'PARENT',
       disable:true,
       _createTime: new Date().getTime(),

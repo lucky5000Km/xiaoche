@@ -16,7 +16,7 @@ Page({
       key: 'token',
       success (res) {
         console.log(res.data)
-        if(res.data.type === 'ADMIN'){
+        if(res.data.type === 'ADMIN' || 'DRIVER' ===res.data.type){
           wx.redirectTo({
             url: '../stations/stations',
           })

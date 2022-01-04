@@ -84,10 +84,10 @@ Page({
                 var schoolbus = {
                   'latitude' : resp.result.data.lat,
                   'longitude' : resp.result.data.lon,
-                  //'iconPath': '../../asset/bus.png',
-                  'iconPath': '../../asset/schoolbus.svg',
-                  'width':30,
-                  'height':30,
+                  'iconPath': '../../asset/bus.png',
+                  //'iconPath': '../../asset/schoolbus.svg',
+                  //'width':30,
+                  //'height':30,
                   'zIndex': 100
                 }
                 var newMarkers =  that.data.markers

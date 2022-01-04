@@ -245,7 +245,7 @@ Page({
           });
         }
 
-        if(res.data.openid != ''){
+        if(res.data.openid != '' && (!res.data.username || res.data.username == '')){
            //判断是否微信用户
             wx.cloud.callFunction({
               name: 'lbs_server',

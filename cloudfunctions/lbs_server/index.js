@@ -4,6 +4,8 @@ const stationsAdd = require('./stations/init');
 const stationsUpdate = require('./stations/update');
 const locations = require('./locations/index');
 const syncLocation = require('./locations/sync');
+const polyline = require('./locations/polyline');
+
 const validGroup = require('./group/index');
 const getGroupId = require('./group/getid');
 const user = require('./user/index');
@@ -43,6 +45,8 @@ exports.main = async (event, context) => {
     return await getUser.main(event,context);
   }else if (event.type === 'addUser'){
     return await addUser.main(event,context);
+  }else if (event.type === 'polyline'){
+    return await polyline.main(event,context);
   }else {
     return {
       code: -1

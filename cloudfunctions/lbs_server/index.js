@@ -15,6 +15,9 @@ const addUser = require('./user/addUser');
 
 const configs = require('./configs/index');
 
+const getLastedNotice = require('./notice/getLastedNotice');
+const addNotice = require('./notice/addNotice');
+
 
 exports.main = async (event, context) => {
   if (event.type === 'address') { // 文字地址到经纬度转换
@@ -47,7 +50,12 @@ exports.main = async (event, context) => {
     return await addUser.main(event,context);
   }else if (event.type === 'polyline'){
     return await polyline.main(event,context);
-  }else {
+  }else if(event.type === 'getLastedNotice'){
+    return await getLastedNotice.main(event,context);
+  }else if(event.type === 'addNotice'){
+    return await addNotice.main(event,context);
+  }
+  else {
     return {
       code: -1
     }

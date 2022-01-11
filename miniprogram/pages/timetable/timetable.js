@@ -3,7 +3,8 @@ Page({
   data: {
     stations: [],
     ori_stations:[],
-    go:true
+    go:true,
+    message:''
   },
   onLoad(){
     wx.showTabBar({
@@ -20,6 +21,7 @@ Page({
         this.setData({
           ori_stations: resp.result.data
         });
+        this.getNotice();
         that.gotable()
         
         console.log('get cartitem'+JSON.stringify(resp))
@@ -30,6 +32,7 @@ Page({
   onReady(){
     console.log('get ori '+this.data.ori_stations)
     this.gotable()
+    this.getNotice();
   },
 
   tomap () {
@@ -67,6 +70,22 @@ Page({
       stations: backStations,
       go: false
     })
+  },
+  getNotice (){
+    console.log('getNotice12312312312')
+    wx.cloud.callFunction({
+      name: 'lbs_server',
+      data: {
+        type: 'getLastedNotice'
+      }
+      }).then((resp) => {
+        console.log('getLastedNotice '+JSON.stringify(resp))
+        this.setData({
+          message: resp.result.data[0].message
+        });
+    }).catch((e) => {
+        console.log(e);
+    });
   },
   onShareAppMessage () {
     return {

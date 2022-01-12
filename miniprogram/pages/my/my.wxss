@@ -37,6 +37,9 @@ page{
   color: #FFFFFF;
   background: var(--mb-color);
 }
+.hide{
+  display: none;
+}
 .mainbtn:active{
   background: var(--zb-color);
 }

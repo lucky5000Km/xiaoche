@@ -1,7 +1,9 @@
 const app = getApp()
+const getUserType = require('./../../common').getUserType;
 Page({
   data: {
-   userInfo:{}
+   userInfo:{},
+   isManager: false,
   },
   onLoad(){
     var that = this;
@@ -15,11 +17,12 @@ Page({
         if(resp.result.data.length>0){
           this.setData({
             userInfo:resp.result.data[0]
-          })
+          });
         }
     }).catch((e) => {
         console.log(e);
     });// end valid wechat
+    this.isManagerCheck();
   },
   onReady(){
   },
@@ -48,5 +51,12 @@ Page({
       title: '看看校车到哪里了',
       imageUrl: '../../asset/logo.jpg'
     }
+  },
+  async isManagerCheck(){
+    var userName = await getUserType();
+    console.log('getUserName...',userName)
+    this.setData({
+      isManager: userName!== undefined &&(userName === 'ADMIN' || userName ==='DRIVE')
+    })
   }
 })

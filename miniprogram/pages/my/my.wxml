@@ -4,6 +4,6 @@
   <view class="page-body">
 		<view>宝贝名字：{{userInfo.kid_name}}</view>
 	<button class="mainbtn"  bindtap="logout">退出登录</button>
-
+	<button class="mainbtn" wx:if="{{isManager}}">修改公告</button> 
 	</view>
 </view>

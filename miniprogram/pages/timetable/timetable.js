@@ -1,4 +1,5 @@
 const app = getApp()
+const getLastedNotice = require('../../common').getLastedNotice;
 Page({
   data: {
     stations: [],
@@ -56,6 +57,13 @@ Page({
       go: true
     })
   },
+  async getNotice (){
+    console.log("getNotice");
+    var message = await getLastedNotice();
+    this.setData({
+      message: message
+    })
+  },
   backtable () {
     let backStations = this.data.ori_stations.filter(function(item){
       return item.detail.back !== undefined
@@ -70,22 +78,6 @@ Page({
       stations: backStations,
       go: false
     })
-  },
-  getNotice (){
-    console.log('getNotice12312312312')
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'getLastedNotice'
-      }
-      }).then((resp) => {
-        console.log('getLastedNotice '+JSON.stringify(resp))
-        this.setData({
-          message: resp.result.data[0].message
-        });
-    }).catch((e) => {
-        console.log(e);
-    });
   },
   onShareAppMessage () {
     return {

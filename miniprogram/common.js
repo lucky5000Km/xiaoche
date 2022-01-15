@@ -1,6 +1,7 @@
 module.exports.getUserType = async () =>{
   var userInfo = await wx.getStorage({
-    key:"token"
+    key:"token",
+    encrypt:true
   });
   if(userInfo === undefined){
     return undefined;

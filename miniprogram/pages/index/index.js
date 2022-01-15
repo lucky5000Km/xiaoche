@@ -78,6 +78,7 @@ Page({
                   })
                   wx.setStorage({
                     key: "token",
+                    encrypt: true,
                     data: res.userInfo,
                   })
                   
@@ -128,7 +129,6 @@ Page({
         canIUseGetUserProfile: true
       })
     }
-    
     this.validLogin()
     
 
@@ -207,9 +207,21 @@ Page({
         })
       }else{
         wx.setStorageSync('role', userList[0].type)
-        wx.setStorageSync('token', userList[0])
-        wx.switchTab({
-          url: '../map/map'
+        wx.setStorage({
+          key: "token",
+          encrypt: true,
+          data:userList[0],
+          success(){
+            wx.switchTab({
+              url: '../map/map'
+            })
+          },
+          fail(e){
+            wx.showToast({
+              title: '系统出错了，请稍候再试',
+              icon:'error'
+            })
+          }
         })
       }
 
@@ -222,7 +234,6 @@ Page({
   },
   //检查有没有登录 
   validLogin(){
-   
     wx.getStorage({
       key:"token",
       encrypt: true,
@@ -271,7 +282,8 @@ Page({
        
       
       },
-      fail(){
+      fail(e){
+        console.log(e,"6666");
         that.setData({
           showUserInfo: true
         })

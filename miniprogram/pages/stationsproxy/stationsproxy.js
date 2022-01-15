@@ -14,6 +14,7 @@ Page({
     console.log('load proxy...')
     wx.getStorage({
       key: 'token',
+      encrypt:true,
       success (res) {
         console.log(res.data)
         if(res.data.type === 'ADMIN' || 'DRIVER' ===res.data.type){
@@ -99,6 +100,7 @@ Page({
   validLogin(){
     wx.getStorage({
       key:"token",
+      encrypt:true,
       success(res){
         console.log('get login data :'+res.data)
         wx.cloud.callFunction({
@@ -148,6 +150,7 @@ Page({
     })
     wx.getStorage({
       key:"token",
+      encrypt:true,
       success(res){
         console.log('get login data :'+res.data)
         if(res.data !=''){

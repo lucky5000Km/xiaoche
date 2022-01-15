@@ -67,6 +67,7 @@ Page({
             success(){
               wx.getStorage({
                 key:"token",
+                encrypt: true,
                 success(res){
                   console.log('get user info '+JSON.stringify(res.data))
                   wx.redirectTo({

@@ -225,6 +225,7 @@ Page({
    
     wx.getStorage({
       key:"token",
+      encrypt: true,
       success(res){
         console.log('get login data %s :',JSON.stringify(res.data))
         //验证用户名密码登录是否有效
@@ -292,6 +293,7 @@ Page({
     })
     wx.getStorage({
       key:"token",
+      encrypt: true,
       success(res){
         console.log('get login data :'+res.data)
         if(res.data !=''){

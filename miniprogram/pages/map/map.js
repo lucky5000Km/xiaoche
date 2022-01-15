@@ -145,128 +145,128 @@ Page({
    * 页面装载回调
    */
   onShow () {
-    that = this // 设置页面this指针到全局that
-       //设置屏幕常亮
-       wx.setKeepScreenOn({
-        keepScreenOn: true
-      })
-    this.initPolyline()
-    this.setData({
-      lastUpdateLocationDate: new Date()
-    })
+    // that = this // 设置页面this指针到全局that
+    //    //设置屏幕常亮
+    //    wx.setKeepScreenOn({
+    //     keepScreenOn: true
+    //   })
+    // this.initPolyline()
+    // this.setData({
+    //   lastUpdateLocationDate: new Date()
+    // })
 
    
 
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'stations'
-      }
-      }).then((resp) => { 
-        let stationList = []
-        let res = resp.result.data;
-        for(var i=0;i<res.length;i++){
-          stationList[i] = res[i];
-          stationList[i].callout = {
-            content: res[i].name,
-            padding: 10,
-            display: 'ALWAYS',
-            textAlign: 'center'
-          }
-        }
+    // wx.cloud.callFunction({
+    //   name: 'lbs_server',
+    //   data: {
+    //     type: 'stations'
+    //   }
+    //   }).then((resp) => { 
+    //     let stationList = []
+    //     let res = resp.result.data;
+    //     for(var i=0;i<res.length;i++){
+    //       stationList[i] = res[i];
+    //       stationList[i].callout = {
+    //         content: res[i].name,
+    //         padding: 10,
+    //         display: 'ALWAYS',
+    //         textAlign: 'center'
+    //       }
+    //     }
 
-        total = stationList.length
-        this.setData({
-          markers: stationList,
-        })      
-        console.log('get cartitem'+JSON.stringify(resp))
-    }).catch((e) => {
-        console.log(e);
-    });
+    //     total = stationList.length
+    //     this.setData({
+    //       markers: stationList,
+    //     })      
+    //     console.log('get cartitem'+JSON.stringify(resp))
+    // }).catch((e) => {
+    //     console.log(e);
+    // });
 
 
-    wx.getLocation({ // 获取当前位置
-      type: 'gcj02', // gcj02火星坐标系，用于地图标记点位
-      success (res) { // 获取成功
-        that.getLocation() // 获取当前位置点
-      },
-      fail (e) { // 获取失败
-        if (e.errMsg.indexOf('auth deny') !== -1) { // 如果是权限拒绝
-          wx.showModal({ // 显示提示
-            content: '你已经拒绝了定位权限，将无法获取到你的位置信息，可以选择前往开启',
-            success (res) {
-              if (res.confirm) { // 确认后
-                wx.openSetting() // 打开设置页，方便用户开启定位
-              }
-            }
-          })
-        }
-      }
-    });
-    this.getWxLocation()
+    // wx.getLocation({ // 获取当前位置
+    //   type: 'gcj02', // gcj02火星坐标系，用于地图标记点位
+    //   success (res) { // 获取成功
+    //     that.getLocation() // 获取当前位置点
+    //   },
+    //   fail (e) { // 获取失败
+    //     if (e.errMsg.indexOf('auth deny') !== -1) { // 如果是权限拒绝
+    //       wx.showModal({ // 显示提示
+    //         content: '你已经拒绝了定位权限，将无法获取到你的位置信息，可以选择前往开启',
+    //         success (res) {
+    //           if (res.confirm) { // 确认后
+    //             wx.openSetting() // 打开设置页，方便用户开启定位
+    //           }
+    //         }
+    //       })
+    //     }
+    //   }
+    // });
+    // this.getWxLocation()
 
    
-    wx.getStorage({
-      key: 'role',
-      success (res) {
-        if('PARENT' === res.data){
-          that.getLastLocation()
-          var period = 30;
-          try {
-            var value = wx.getStorageSync('parent_getpos')
-            if (value) {
-              period = value.value.period;
-            }
-          } catch (e) {
-            // Do something when catch error
-          }
-          setInterval(() => {
-            that.getLastLocation()
-            console.log('count:'+count)
-          }, period*1000);
-        }else if('DRIVER' === res.data){
-          console.log('get role of driver ,begin to upload position')
-            that.setData({
-              role: 'SCHOOL'
-            })
-           //更新校车位置
-            wx.onLocationChange(function(res) {
-              console.log('location change'+that.data.lastUpdateLocationDate+','+new Date(), res)
-              var carPeriod  = 5
-              try {
-                var value = wx.getStorageSync('upload_position')
-                if (value) {
-                  carPeriod = value.value.period;
-                }
-              } catch (e) {
-                // Do something when catch error
-              }
-              var current = new Date()
-              var diff = (current - that.data.lastUpdateLocationDate) / 1000
-              if(diff >= carPeriod){
-                that.setData({
-                  lastUpdateLocationDate: current
-                })
-                wx.cloud.callFunction({
-                  name: 'lbs_server',
-                  data: {
-                    type: 'syncLocation',
-                    lat: res.latitude,
-                    lon: res.longitude
-                  }
-                  }).then((resp) => {           
-                    console.log('get sync location'+JSON.stringify(resp))
-                }).catch((e) => {
-                    console.log(e);
-                });
-              }else{
-                console.log('do not update location')
-              }
+    // wx.getStorage({
+    //   key: 'role',
+    //   success (res) {
+    //     if('PARENT' === res.data){
+    //       that.getLastLocation()
+    //       var period = 30;
+    //       try {
+    //         var value = wx.getStorageSync('parent_getpos')
+    //         if (value) {
+    //           period = value.value.period;
+    //         }
+    //       } catch (e) {
+    //         // Do something when catch error
+    //       }
+    //       setInterval(() => {
+    //         that.getLastLocation()
+    //         console.log('count:'+count)
+    //       }, period*1000);
+    //     }else if('DRIVER' === res.data){
+    //       console.log('get role of driver ,begin to upload position')
+    //         that.setData({
+    //           role: 'SCHOOL'
+    //         })
+    //        //更新校车位置
+    //         wx.onLocationChange(function(res) {
+    //           console.log('location change'+that.data.lastUpdateLocationDate+','+new Date(), res)
+    //           var carPeriod  = 5
+    //           try {
+    //             var value = wx.getStorageSync('upload_position')
+    //             if (value) {
+    //               carPeriod = value.value.period;
+    //             }
+    //           } catch (e) {
+    //             // Do something when catch error
+    //           }
+    //           var current = new Date()
+    //           var diff = (current - that.data.lastUpdateLocationDate) / 1000
+    //           if(diff >= carPeriod){
+    //             that.setData({
+    //               lastUpdateLocationDate: current
+    //             })
+    //             wx.cloud.callFunction({
+    //               name: 'lbs_server',
+    //               data: {
+    //                 type: 'syncLocation',
+    //                 lat: res.latitude,
+    //                 lon: res.longitude
+    //               }
+    //               }).then((resp) => {           
+    //                 console.log('get sync location'+JSON.stringify(resp))
+    //             }).catch((e) => {
+    //                 console.log(e);
+    //             });
+    //           }else{
+    //             console.log('do not update location')
+    //           }
               
-            })//end update
-        }
-      }
-    })
+    //         })//end update
+    //     }
+    //   }
+    // })
     
 
   },

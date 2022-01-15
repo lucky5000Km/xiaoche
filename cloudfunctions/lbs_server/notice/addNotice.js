@@ -7,6 +7,7 @@ const db = cloud.database();
 // 获取openId云函数入口函数
 exports.main = async (event, context) => {
   let {message} = event;
+  console.log(event,"messagehahah")
   // 获取基础信息
   const wxContext = cloud.getWXContext();
   return await db.collection('notice').add({

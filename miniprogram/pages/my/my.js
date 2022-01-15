@@ -45,6 +45,11 @@ Page({
     })
 
   },
+  toNoticePage(){
+    this.pageRouter.navigateTo({
+      url: './../notice/notice'
+    });
+  },
   
   onShareAppMessage () {
     return {
@@ -58,5 +63,6 @@ Page({
     this.setData({
       isManager: userName!== undefined &&(userName === 'ADMIN' || userName ==='DRIVE')
     })
-  }
+  },
+
 })

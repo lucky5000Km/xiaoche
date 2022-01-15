@@ -1,0 +1,5 @@
+/* pages/notice.wxss */
+@import "../../lib/weui.wxss";
+.title{
+    font-size: small;
+}

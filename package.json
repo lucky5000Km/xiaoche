@@ -1,0 +1,22 @@
+{
+  "name": "xiaoche-test",
+  "version": "1.0.0",
+  "description": "本项目主要用于查看校车实时位置，便于家长接送孩子，避免延误接送孩子，或者解决由于校车堵车等情况不能准时到达时造成的家长等待过久问题。",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucky5000Km/xiaoche.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucky5000Km/xiaoche/issues"
+  },
+  "homepage": "https://github.com/lucky5000Km/xiaoche#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.10.2"
+  }
+}

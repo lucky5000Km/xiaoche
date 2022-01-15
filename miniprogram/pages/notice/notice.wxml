@@ -1,0 +1,29 @@
+<!--pages/notice.wxml-->
+<view class="container">
+        <van-cell-group>
+                <van-field
+            model:value="{{noticeMessage}}"
+            label="当前公告"
+            type="textarea"
+            autosize
+            readonly
+            border="{{ true }}"
+        />
+    </van-cell-group>
+    <van-cell-group>
+                <van-field
+            model:value="{{newMessage}}"
+            label="新公告"
+            type="textarea"
+            placeholder="请输入新的公告内容，最长256个字符"
+            autosize
+            clickable
+            clearable
+            maxlength="256"
+            show-word-limit="true"
+            border="{{ true }}"
+        />
+    </van-cell-group>
+    <button class="mainbtn"  bindtap="saveNotice">发布新公告</button>
+    <van-toast id="van-toast" />
+</view>

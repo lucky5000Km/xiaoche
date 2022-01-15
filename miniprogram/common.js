@@ -8,3 +8,28 @@ module.exports.getUserType = async () =>{
   console.log(userInfo,"getUserInfo===")
   return userInfo.data.type;
 }
+module.exports.getLastedNotice = async ()=>{
+ var noticeInfo = await  wx.cloud.callFunction({
+    name: 'lbs_server',
+    data: {
+      type: 'getLastedNotice'
+    }
+    });
+  if(noticeInfo.result !== undefined && noticeInfo.result.data.length > 0){
+    return noticeInfo.result.data[0].message;
+  }
+  return '暂无';
+}
+
+module.exports.callCouldFun = async(methodName,data) =>{
+  console.log("凯斯调用",data);
+  if(data === undefined || data === null){
+    data === {};
+  }
+  data.type = methodName;
+console.log(data,"final")
+  return await wx.cloud.callFunction({
+    name: 'lbs_server',
+    data: data
+  })
+}

@@ -1,4 +1,4 @@
-<image class="topimg" style="width:60px;height:60px" src="{{userInfo.avatarUrl}}"></image>
+<!-- <image class="topimg" style="width:60px;height:60px" src="{{userInfo.avatarUrl}}"></image>
 
 <view class="container">
   <view class="page-body">
@@ -6,4 +6,49 @@
 	<button class="mainbtn"  bindtap="logout">退出登录</button>
 	<button class="mainbtn" wx:if="{{isManager}}" bindtap="toNoticePage">修改公告</button> 
 	</view>
+</view> -->
+<view class="area">
+  <view style="margin-top: 80rpx;">
+    <van-row gutter="20" style="height: 3rem">
+      <van-col span="5">
+	     <van-image round width="3rem" height="3rem" src="{{userInfo.avatarUrl}}"/>
+      </van-col>
+      <van-col span="14" >
+          <van-row style="color: rgb(192, 192, 192);">
+            {{userInfo.nickName}}
+          </van-row>
+          <van-row style="color: rgb(192, 192, 192);font-size: small;">
+            宝贝名字：{{userInfo.kid_name}}
+          </van-row>
+      </van-col>
+      <van-col span="2" >
+         <image bindtap="logout" src="../../asset/exit.png" style="width: 2rem;height:2rem;"/>
+      </van-col>
+    </van-row>
+  </view>
+</view>
+<view class="menu">
+  <view class="menuItem">
+    <span class="menuIcon"><van-icon name="guide-o" size="40rpx" color="#84c4ef"/></span>
+    <span class="menuTitle">站点管理</span>
+    <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>
+  </view>
+  <view class="menuItem">
+    <span class="menuIcon"><van-icon name="friends-o" size="40rpx" color="#84c4ef"/></span>
+    <span class="menuTitle">账号审核</span>
+    <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>
+  </view>
+  <view class="menuItem"  bindtap="toNoticePage">
+    <span class="menuIcon"><van-icon name="volume-o" size="40rpx" color="#84c4ef"/></span>
+    <span class="menuTitle">修改公告</span>
+    <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>
+  </view>
+</view>
+
+<view class="menu">
+  <view class="menuItem">
+    <span class="menuIcon"><van-icon name="chat-o" size="40rpx" color="#84c4ef"/></span>
+    <span class="menuTitle">意见反馈</span>
+    <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>
+  </view>
 </view>

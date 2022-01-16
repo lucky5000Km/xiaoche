@@ -283,7 +283,6 @@ Page({
       
       },
       fail(e){
-        console.log(e,"6666");
         that.setData({
           showUserInfo: true
         })

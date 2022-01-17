@@ -65,4 +65,10 @@ Page({
     })
   },
 
+  toStationManagePage(){
+    this.pageRouter.navigateTo({
+      url: './../station-manage/station-manage'
+    })
+  }
+
 })

@@ -8,7 +8,8 @@
     "pages/stationinfo/stationinfo",
     "pages/my/my",
     "pages/stationsproxy/stationsproxy",
-    "pages/notice/notice"
+    "pages/notice/notice",
+    "pages/station-manage/station-manage"
   ],
   "permission": {
     "scope.userLocation": {
@@ -53,6 +54,11 @@
     "van-row": "@vant/weapp/row/index",
     "van-col": "@vant/weapp/col/index",
     "van-image": "@vant/weapp/image/index",
-    "van-icon": "@vant/weapp/icon/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-goods-action": "@vant/weapp/goods-action/index",
+    "van-goods-action-button": "@vant/weapp/goods-action-button/index",
+    "van-sticky": "@vant/weapp/sticky/index"
   }
 }

@@ -1,0 +1,71 @@
+<van-sticky>
+<van-tabs sticky active="{{ active }}" bind:change="changeTab">
+  <van-tab title="上学"></van-tab>
+  <van-tab title="回家"></van-tab>
+
+</van-tabs>
+</van-sticky>
+
+<view style="">
+  <top-title toptitle="排序习惯" backImgFlag="true"></top-title>
+  <view class="habitlist">
+    <!-- 克隆当前拖拽的项 -->
+    <view class='habit kelong' hidden='{{!showkelong}}' style='top:{{top}}px'>
+      <view class='index'>?</view>
+      <view class="info">
+        <view class="title">{{kelong.name}}</view>
+      </view>
+      <view class="info">
+        <view class="title">{{kelong.departure_time}}</view>
+       </view>
+      <image class="img"
+        src="../../asset/drag.png"></image>
+    </view>
+    <block wx:for="{{habitList}}" wx:key="name">
+      <view class="habit {{selectedIndex==index?'gray':''}}" >
+        <view class='index'>{{index+1}}</view>
+        <view class="info">
+          <view class="title">{{item.name}}</view>
+        </view>
+        <view class="info">
+          <view class="title">{{item.departure_time}}</view>
+        </view>
+        <!-- 拖拽节点 -->
+        <view wx:if="{{adjustModel}}" data-index='{{index}}' catchtouchstart='dragStart' catchtouchmove='dragMove'
+          catchtouchend='dragEnd'>
+          <image class="img"
+            src="../../asset/drag.png"></image>
+        </view>
+        <view bindtap="toStation" data-item="{{item}}" wx:if="{{!adjustModel}}" data-index='{{index}}'>
+          <image class="img"
+            src="../../asset/edit.png"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<div style="height: 130rpx;display:block"></div>
+<view wx:if="{{!adjustModel}}">
+  <van-goods-action>
+  <van-goods-action-button
+    text="调整顺序"
+    color= "linear-gradient(160deg,#353535, #000000);"
+    bind:click="changeAdjustModel"
+  />
+  <van-goods-action-button
+  color= "linear-gradient(160deg,#353535, #000000);"
+   text="新建站点" bind:click="onClickButton" />
+</van-goods-action>
+</view>
+<view wx:if="{{adjustModel}}">
+  <van-goods-action>
+  <van-goods-action-button
+    text="取消"
+        color= "linear-gradient(160deg,#353535, #000000);"
+    bind:click="changeAdjustModel"
+  />
+  <van-goods-action-button text="保存" 
+      color= "linear-gradient(160deg,#353535, #000000);"
+  bind:click="onClickButton" />
+</van-goods-action>
+</view>

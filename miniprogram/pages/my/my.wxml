@@ -28,7 +28,7 @@
   </view>
 </view>
 <view class="menu">
-  <view class="menuItem">
+  <view class="menuItem" bindtap="toStationManagePage">
     <span class="menuIcon"><van-icon name="guide-o" size="40rpx" color="#84c4ef"/></span>
     <span class="menuTitle">站点管理</span>
     <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>

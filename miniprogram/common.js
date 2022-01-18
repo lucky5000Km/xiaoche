@@ -64,7 +64,8 @@ module.exports.getGoTable = (data)=>{
       "departure_time":item.detail.go.time,
       "_id":item._id,
       "latitude":item.latitude,
-      "longitude":item.longitude
+      "longitude":item.longitude,
+      "order": item.detail.go.order
     }
   })
   return goStations;
@@ -84,7 +85,8 @@ module.exports.getBackTable = (data) =>{
     "departure_time":item.detail.back.time,
     "_id":item._id,
     "latitude":item.latitude,
-    "longitude":item.longitude
+    "longitude":item.longitude,
+    "order": item.detail.back.order
     }
   })
   return backStations;

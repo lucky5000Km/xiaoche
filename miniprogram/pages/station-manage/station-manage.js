@@ -9,6 +9,7 @@ Page({
     allStationsInfo:[],
     adjustModel: false,
     goTab:true,
+    effListMap:new Map(),
     // 当前拖拽项的克隆
     kelong: {
       name: '',
@@ -23,12 +24,14 @@ Page({
  
   changeAdjustModel(){
     this.setData({
-      adjustModel: !this.data.adjustModel
+      adjustModel: !this.data.adjustModel,
+      effListMap: new Map()
     })
   },
   changeTab(){
     this.setData({
-      goTab: !this.data.goTab
+      goTab: !this.data.goTab,
+      effListMap: new Map()
     })
     this.setData({
       habitList: this.data.goTab ? getGoTable(this.data.allStationsInfo) : getBackTable(this.data.allStationsInfo)
@@ -99,6 +102,7 @@ Page({
     var query = wx.createSelectorQuery();
     var kelong = this.data.kelong
     var habitList = this.data.habitList
+    var that = this;
     query.select('.habitlist').boundingClientRect((rect) => {
       var top = e.changedTouches[0].clientY - rect.top - 30
       if (top > rect.height) {
@@ -123,11 +127,18 @@ Page({
         }
         console.log("往上拖拽 list=======", list);
         if (list.lenghth != 0) {
-          habitList[target] = kelong
+          let lastOrder = kelong.order;
+          kelong.order = habitList[target].order;
+          this.calEffDataOrder(kelong);
+          habitList[target] = Object.assign({},kelong);
           for (var m = target + 1, n = 0; n < list.length; m++, n++) {
-            habitList[m] = list[n]
+            habitList[m] = Object.assign({}, list[n]);
+            habitList[m].order = n < list.length -1 ? list[n+1].order : lastOrder;
+            this.calEffDataOrder(habitList[m]);
           }
         }
+
+
       } else {
         // 往下边位置拖拽
         for (var k = 1; k <= target - i; k++) {
@@ -138,9 +149,15 @@ Page({
         }
         console.log("往下拖拽 list=======", list);
         if (list.length != 0) {
-          habitList[target] = kelong
+          let lastOrder = kelong.order;
+          kelong.order = habitList[target].order;
+          this.calEffDataOrder(kelong);
+          habitList[target] = Object.assign({},kelong);
           for (var m = i, n = 0; n < list.length; m++, n++) {
-            habitList[m] = list[n]
+            habitList[m] = Object.assign({},list[n]);
+            habitList[m].order = lastOrder;
+            this.calEffDataOrder(habitList[m]);
+            lastOrder = list[n].order;
           }
         }
       }
@@ -151,7 +168,15 @@ Page({
         selectedIndex:-1,
         showkelong: false
       })
+
+      console.log(this.data.effListMap);
     }).exec();
   },
- 
+  calEffDataOrder(data){
+    var temp =  this.data.effListMap;
+    temp.set(data.name,data.order);
+    this.setData({
+      effListMap: temp
+    })
+  }
 })

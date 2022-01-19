@@ -66,6 +66,6 @@
   />
   <van-goods-action-button text="保存" 
       color= "linear-gradient(160deg,#353535, #000000);"
-  bind:click="onClickButton" />
+  bind:click="saveOrder" />
 </van-goods-action>
 </view>

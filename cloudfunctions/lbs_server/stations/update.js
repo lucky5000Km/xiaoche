@@ -15,3 +15,38 @@ exports.main = async (event, context) => {
     }
   });
 };
+async function update(_id,order,goTab) {
+  var updateDate ={};
+  if(goTab){
+    updateDate = {
+      go:{
+        order:order
+      } 
+    }
+  }else{
+    updateDate = {
+      back: {
+        order: order
+      }
+    }
+  }
+  await db.collection('stations').doc(_id).update({
+    data:{
+      detail:updateDate
+    }
+  })
+}
+module.exports.updateOrder = (event,context) =>{
+  var effListMap = event.effListMap;
+  effListMap = new Map(Object.entries(effListMap));
+  var goTap = event.goTap;
+  console.log(event);
+  if(effListMap === null || effListMap === undefined|| effListMap.size <= 0){
+    return;
+  }
+  var keys = effListMap.keys();
+  for(const key of keys){
+    console.log(key,effListMap.get(key),goTap);
+    update(key,effListMap.get(key),goTap);
+  }
+}

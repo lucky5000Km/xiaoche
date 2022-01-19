@@ -54,6 +54,8 @@ exports.main = async (event, context) => {
     return await getLastedNotice.main(event,context);
   }else if(event.type === 'addNotice'){
     return await addNotice.main(event,context);
+  }else if(event.type === 'updateOrder'){
+    return await stationsUpdate.updateOrder(event,context);
   }
   else {
     return {

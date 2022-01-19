@@ -1,4 +1,4 @@
-const {getStationsList,getGoTable,getBackTable,toEditStationsPage} = require("./../../common");
+const {getStationsList,callCouldFun,getGoTable,getBackTable,toEditStationsPage} = require("./../../common");
 Page({
  
   /**
@@ -27,6 +27,7 @@ Page({
       adjustModel: !this.data.adjustModel,
       effListMap: new Map()
     })
+    this.getStationsList();
   },
   changeTab(){
     this.setData({
@@ -41,6 +42,42 @@ Page({
     var item = event.currentTarget.dataset.item;
     toEditStationsPage(item);
   },
+  async saveOrder(){
+    wx.showLoading({
+      title: "保存中",
+      mask: true
+    });
+    if(this.data.effListMap.size<=0){
+      wx.hideLoading();
+      wx.showToast({
+        title:"没有改动，无序调整",
+        icon:"none"
+      })
+      return;
+    }
+    console.log("eff",this.data.effListMap);
+    try{
+      var result = await callCouldFun("updateOrder",{effListMap:Object.fromEntries(this.data.effListMap.entries()),goTap:this.data.goTab});
+      console.log(result);
+      wx.hideLoading();
+      wx.showToast({
+        "title":"保存成功",
+        icon:"success"
+      })
+      this.getStationsList();
+      this.setData({
+        adjustModel:false,
+      })
+      return;
+    }catch(err){
+      wx.hideLoading();
+      wx.showToast({
+        title:"保存失败",
+        icon:"error"
+      })
+    }
+    
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -49,9 +86,14 @@ Page({
   },
 
   async getStationsList(){
+    wx.showLoading({
+      title:"加载中"
+    })
     var list = await getStationsList();
+    wx.hideLoading();
     this.setData({
-      allStationsInfo: list
+      allStationsInfo: list,
+      effListMap: new Map(),
     })
     this.setData({
       habitList: this.data.goTab ? getGoTable(this.data.allStationsInfo) : getBackTable(this.data.allStationsInfo)
@@ -121,7 +163,7 @@ Page({
         //  往上方位置拖拽
         for (var k = 0; k <= i - target; k++) {
           //  备份插入位置target开始的下方数据，除了拖拽数据项
-          if (habitList[target + k].name != kelong.name) {
+          if (habitList[target + k]._id != kelong._id) {
             list.push(habitList[target + k])
           }
         }
@@ -143,7 +185,7 @@ Page({
         // 往下边位置拖拽
         for (var k = 1; k <= target - i; k++) {
           //  备份插入位置target开始的上方数据，除了拖拽数据项
-          if (habitList[i + k].name != kelong.name) {
+          if (habitList[i + k]._id != kelong._id) {
             list.push(habitList[i + k])
           }
         }
@@ -174,7 +216,7 @@ Page({
   },
   calEffDataOrder(data){
     var temp =  this.data.effListMap;
-    temp.set(data.name,data.order);
+    temp.set(data._id,data.order);
     this.setData({
       effListMap: temp
     })

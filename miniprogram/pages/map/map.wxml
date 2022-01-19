@@ -1,3 +1,8 @@
+<!-- 文字较短时，通过设置 scrollable 属性开启滚动播放 -->
+<van-notice-bar 
+  left-icon="volume-o"
+  text="{{message}}"
+/>
 <map longitude="{{longitude}}" enable-3D="true" enable-building="true" latitude="{{latitude}}" bindregionchange="changeMap" bindtap="clickMap" show-location="true" markers="{{markers}}" scale="14"
 polyline="{{polyline}}" show-compass="true" enable-traffic="true"
 ></map>

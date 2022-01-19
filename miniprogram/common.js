@@ -13,11 +13,11 @@ module.exports.getLastedNotice = async ()=>{
  var noticeInfo = await  wx.cloud.callFunction({
     name: 'lbs_server',
     data: {
-      type: 'getLastedNotice'
+      type: 'getNotify'
     }
     });
   if(noticeInfo.result !== undefined && noticeInfo.result.data.length > 0){
-    return noticeInfo.result.data[0].message;
+    return noticeInfo.result.data[0].value.data;
   }
   return '暂无';
 }

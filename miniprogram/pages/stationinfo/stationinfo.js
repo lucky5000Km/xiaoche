@@ -1,8 +1,11 @@
+const { default: Toast } = require("../../miniprogram_npm/@vant/weapp/toast/toast");
+
 const app = getApp() // 获取全局APP对象
 let that = null // 页面this指针变量
 Page({
   data: { // 默认数据
     _id: -1,
+    goTab:false,
     latitude: 39.9086, // 地图中心纬度
     longitude: 116.3974, // 地图中心经度
     location: '', // 经纬度输入框
@@ -23,25 +26,52 @@ Page({
       location: '-' // 经纬度
     }
   },
-
+  bindTimeChange(event){
+    var info = Object.assign(this.data.info,{})
+    info.adinfo = event.detail.value;
+    this.setData({
+      info:info
+    })
+  },
+  bindFormattedChange(event){
+    console.log(event);
+    var info = Object.assign(this.data.info,{})
+    info.formatted = event.detail;
+    if(info.formatted === null || info.formatted === undefined || info.formatted === ''){
+      wx.showToast({
+        title:"站定名称必填",
+        type:"warning"
+      })
+      return;
+    }
+    this.setData({
+      info:info
+    })
+    console.log(this.data.info);
+  },
   
   /**
    * 页面装载回调
    */
   onLoad (options) {
     console.log('get url params '+JSON.stringify(options)); 
-    that = this // 
-    that.setData({
-      _id: options._id,
-      info: { // 地图点位信息
-        address: '-', // 常规地址
-        adinfo: options.departure_time, // 行政区
-        formatted: options.name, // 推荐地址
-        location: options.latitude+','+options.longitude // 经纬度
-      },
-     
+    this.setData({
+      goTab: options.goTab  === 1 ? true : false,
     })
-    that.setInfo([parseFloat(options.latitude), parseFloat(options.longitude)]) // 设置经纬度信息
+    that = this // 
+    if(options._id !== undefined && options._id !== null){
+      that.setData({
+        _id: options._id,
+        info: { // 地图点位信息
+          address: '-', // 常规地址
+          adinfo: options.departure_time, // 行政区
+          formatted: options.name, // 推荐地址
+          location: options.latitude+','+options.longitude // 经纬度
+        },
+       
+      })
+      that.setInfo([parseFloat(options.latitude), parseFloat(options.longitude)]) // 设置经纬度信息
+    }
     /**
     wx.getLocation({ // 获取当前位置
       type: 'gcj02', // gcj02火星坐标系，用于地图标记点位
@@ -198,6 +228,11 @@ Page({
       data = Object.assign(data, { // 传入标记点
         'marker.latitude': pot[0],
         'marker.longitude': pot[1]
+      })
+      var info = Object.assign(this.data.info,{});
+      info.location = pot[0]+','+ pot[1]
+      this.setData({
+        info: info
       })
     }
     if (type !== 2) { // 如果类型不为2

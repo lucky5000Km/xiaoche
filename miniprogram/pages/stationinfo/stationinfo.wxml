@@ -7,23 +7,38 @@
 	<view class="title">拖动地图上的图标到指定站点位置，点击按钮保存</view>
 </view>
 <view class="info_model">
-	<view class="info_item">
-		<view>站点名称</view>
-		<view>{{info.formatted}}</view>
-	</view>
-	<view class="info_item">
-		<view>经纬度</view>
-		<view>{{info.location}}</view>
-	</view>
+	<van-cell-group>
+ 	 <van-field
+	  	label="站点名称"
+    	value="{{info.formatted}}"
+    	placeholder="请输入站点名称"
+    	border="{{ true }}"
+		bind:change="bindFormattedChange"
+  	/>
+	</van-cell-group>
+	<van-cell-group>
+ 	 <van-field
+	  	label="经纬度"
+    	value="{{info.location}}"
+		disabled
+    	border="{{ true }}"
+  	/>
+	</van-cell-group>
 	<!--
 	<view class="info_item">
 		<view>常规地址</view>
 		<view>{{info.address}}</view>
 	</view>-->
-	<view class="info_item">
-		<view>到站时间</view>
-		<view>{{info.adinfo}}</view>
-	</view>
+	<picker mode="time" value="{{info.adinfo}}"  bindchange="bindTimeChange">
+			<van-cell-group>
+ 	 			<van-field
+	  				label="到站时间"
+    				value="{{info.adinfo}}"
+					disabled
+    				border="{{ true }}"
+  			/>
+	</van-cell-group>
+	</picker>
 
 	<button class="mainbtn" bindtap="uploadLocation">保存位置</button>
 

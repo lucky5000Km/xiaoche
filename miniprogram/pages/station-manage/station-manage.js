@@ -40,7 +40,10 @@ Page({
   },
   toStation(event){
     var item = event.currentTarget.dataset.item;
-    toEditStationsPage(item);
+    toEditStationsPage(item,this.data.goTab);
+  },
+  toStationForNew(){
+    toEditStationsPage(null,this.data.goTab);
   },
   async saveOrder(){
     wx.showLoading({

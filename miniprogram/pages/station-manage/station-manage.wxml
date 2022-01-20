@@ -54,7 +54,7 @@
   />
   <van-goods-action-button
   color= "linear-gradient(160deg,#353535, #000000);"
-   text="新建站点" bind:click="onClickButton" />
+   text="新建站点" bind:click="toStationForNew" />
 </van-goods-action>
 </view>
 <view wx:if="{{adjustModel}}">

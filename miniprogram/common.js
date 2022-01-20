@@ -92,8 +92,13 @@ module.exports.getBackTable = (data) =>{
   return backStations;
 }
 
-module.exports.toEditStationsPage = (item) =>{
-  var params = '?_id='+item._id+"&name="+item.name+'&departure_time='+item.departure_time+'&latitude='+item.latitude+'&longitude='+item.longitude;
+module.exports.toEditStationsPage = (item,goTab) =>{
+  var params = '?goTap='+ (goTab ? 1 : 0);
+  if(item!== undefined && item!= null && item != {}){
+     params = params + '&_id='+item._id+"&name="+item.name+'&departure_time='+item.departure_time+
+    '&latitude='+item.latitude+'&longitude='+item.longitude;
+  }
+  console.log(params);
   wx.navigateTo({
     url: '../stationinfo/stationinfo'+params,
   })

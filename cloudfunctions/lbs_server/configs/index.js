@@ -9,5 +9,21 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   // 返回数据库查询结果
   console.log('event data '+JSON.stringify(event))
-  return await db.collection('configs').get();;
+  return await db.collection('configs').get();
 };
+exports.getNotify = async (event, context) =>{
+  return await db.collection('configs').where({
+    key: 'notify'
+  }).get();
+}
+exports.updateNotify = async(event, context) =>{
+  return await db.collection('configs').where({
+    key: 'notify'
+  }).update({
+    data:{
+      value:{
+        data: event.message
+      }
+    }
+  })
+}

@@ -4,6 +4,7 @@ let total = 0 //站点数量
 let count = 0;
 Page({
   data: { // 默认数据
+    message:'暂无通知',
     lastUpdateLocationDate: null,
     latitude: 40.06445, // 地图中心纬度
     longitude: 116.36602, // 地图中心经度
@@ -27,7 +28,7 @@ Page({
       color: '#DC143C',
       width:5,
       dottedLine: true
-    }]
+    }],
    
   },
   initPolyline(){
@@ -140,7 +141,18 @@ Page({
     count++
 
   },
-
+  onLoad(){
+    that = this
+    wx.getStorage({
+      key:'notify',
+      success(res){
+        console.log("getNotice %s",JSON.stringify(res.data));
+        that.setData({
+          message: res.data.value.data
+        })
+      }
+    })
+  },
   /**
    * 页面装载回调
    */
@@ -268,10 +280,9 @@ Page({
     //   }
     // })
     
-
+    
   },
 
-  
   
   
   /**

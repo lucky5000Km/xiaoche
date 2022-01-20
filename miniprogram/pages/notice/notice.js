@@ -40,7 +40,7 @@ Page({
     }
     try{
       console.log("this.newMessage",this.data.newMessage);
-      await callColudFun('addNotice',{message: this.data.newMessage});
+      await callColudFun('updateNotify',{message: this.data.newMessage});
       Toast.clear();
       Toast({
         type: 'success',

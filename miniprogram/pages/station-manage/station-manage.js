@@ -40,10 +40,18 @@ Page({
   },
   toStation(event){
     var item = event.currentTarget.dataset.item;
-    toEditStationsPage(item,this.data.goTab);
+    var maxOrder = -1;
+    if(this.data.habitList !== undefined && this.data.habitList!==null && this.data.habitList.length > 0){
+      maxOrder = this.data.habitList[this.data.habitList.length-1].order;
+    }
+    toEditStationsPage(item,this.data.goTab,maxOrder);
   },
   toStationForNew(){
-    toEditStationsPage(null,this.data.goTab);
+    var maxOrder = -1;
+    if(this.data.habitList !== undefined && this.data.habitList!==null && this.data.habitList.length > 0){
+      maxOrder = this.data.habitList[this.data.habitList.length-1].order;
+    }
+    toEditStationsPage(null,this.data.goTab,maxOrder);
   },
   async saveOrder(){
     wx.showLoading({
@@ -60,7 +68,7 @@ Page({
     }
     console.log("eff",this.data.effListMap);
     try{
-      var result = await callCouldFun("updateOrder",{effListMap:Object.fromEntries(this.data.effListMap.entries()),goTap:this.data.goTab});
+      var result = await callCouldFun("updateOrder",{effListMap:Object.fromEntries(this.data.effListMap.entries()),goTab:this.data.goTab});
       console.log(result);
       wx.hideLoading();
       wx.showToast({
@@ -85,6 +93,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getStationsList();
+  },
+  onShow: function(options){
     this.getStationsList();
   },
 

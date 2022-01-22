@@ -1,4 +1,5 @@
 const { default: Toast } = require("../../miniprogram_npm/@vant/weapp/toast/toast");
+const callCouldFun = require("../../common").callCouldFun;
 
 const app = getApp() // 获取全局APP对象
 let that = null // 页面this指针变量
@@ -6,6 +7,7 @@ Page({
   data: { // 默认数据
     _id: -1,
     goTab:false,
+    maxOrder: 0,
     latitude: 39.9086, // 地图中心纬度
     longitude: 116.3974, // 地图中心经度
     location: '', // 经纬度输入框
@@ -56,7 +58,8 @@ Page({
   onLoad (options) {
     console.log('get url params '+JSON.stringify(options)); 
     this.setData({
-      goTab: options.goTab  === 1 ? true : false,
+      goTab: options.goTab  === "1" ? true : false,
+      maxOrder: options.maxOrder,
     })
     that = this // 
     if(options._id !== undefined && options._id !== null){
@@ -66,9 +69,8 @@ Page({
           address: '-', // 常规地址
           adinfo: options.departure_time, // 行政区
           formatted: options.name, // 推荐地址
-          location: options.latitude+','+options.longitude // 经纬度
+          location: options.latitude+','+options.longitude, // 经纬度
         },
-       
       })
       that.setInfo([parseFloat(options.latitude), parseFloat(options.longitude)]) // 设置经纬度信息
     }
@@ -189,32 +191,63 @@ Page({
       [e.currentTarget.dataset.key]: e.detail.value
     })
   },
-  uploadLocation(){
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'stationsUpdate',
-        _id: that.data._id,
-        latitude: that.data.marker.latitude,
-        longitude: that.data.marker.longitude
-      }
-      }).then((resp) => {
-        
-        console.log('update station '+JSON.stringify(resp))
-        wx.showToast({
-          title: '更新成功',
-          icon: 'success',
-          duration: 3000,
-          success(){
-            wx.redirectTo({
-              url: '../stations/stations'
-            })
-          }
-        })
-        
-    }).catch((e) => {
-        console.log(e);
-    });
+  async uploadLocation(){
+    wx.showLoading({
+      title: '保存中',
+      mask:true
+    })
+    var canSave = true;
+    if(this.data.info.formatted === undefined || this.data.info.formatted === null || this.data.info.formatted === ''){
+      canSave = fasle;
+    }
+    if(this.data.info.location === undefined || this.data.info.location === null || this.data.info.location === ''){
+      canSave = false;
+    }
+    if(this.data.info.adinfo === undefined || this.data.info.adinfo === null || this.data.info.adinfo === ''){
+      canSave = false;
+    }
+    if(!canSave){
+      wx.hideLoading()
+      wx.showLoading({
+        title: '请先完善信息后再进行保存',
+        icon:'error',
+        mast: true
+      })
+      return;
+    }
+    var location = this.data.info.location.split(",");
+    console.log(this.data.goTab);
+    var dataEvent = {
+      name: this.data.info.formatted,
+      latitude: location[0],
+      longitude: location[1],
+      goTab: this.data.goTab,
+      _id : this.data._id,
+      order: Number(this.data.maxOrder) + 1,
+      time: this.data.info.adinfo,
+    }
+    try{
+      await callCouldFun('updateOrInsertStation',dataEvent);
+      wx.hideLoading()
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        mask: true,
+        success(){
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    }catch(err){
+      console.log(err);
+      wx.hideLoading()
+      wx.showToast({
+        title: "保存失败"+err,
+        icon:'error'
+      })
+    }
+
   },
   /**
    * 统一设置经纬度信息和额外信息

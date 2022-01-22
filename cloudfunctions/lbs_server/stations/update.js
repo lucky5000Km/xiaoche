@@ -39,14 +39,59 @@ async function update(_id,order,goTab) {
 module.exports.updateOrder = (event,context) =>{
   var effListMap = event.effListMap;
   effListMap = new Map(Object.entries(effListMap));
-  var goTap = event.goTap;
+  var goTab = event.goTab;
   console.log(event);
   if(effListMap === null || effListMap === undefined|| effListMap.size <= 0){
     return;
   }
   var keys = effListMap.keys();
   for(const key of keys){
-    console.log(key,effListMap.get(key),goTap);
-    update(key,effListMap.get(key),goTap);
+    console.log(key,effListMap.get(key),goTab);
+    update(key,effListMap.get(key),goTab);
+  }
+}
+
+exports.updateOrInsertStation = async (event,context)=>{
+  const wxContext = cloud.getWXContext();
+  console.log(event);
+  var insert = false;
+  var goTab = event.goTab;
+  if(event._id === undefined || event._id === null || event._id === -1){
+    insert = true;
+  }
+  if(goTab === undefined || goTab === null){
+    return;
+  }
+  var dataSave = {
+    latitude: event.latitude,
+    longitude: event.longitude,
+    name: event.name,
+    open_id: wxContext.OPENID,
+    _updateTime : new Date().getTime()
+  }
+  console.log(dataSave);
+  var timeAndOrder = {};
+  if(insert){
+    timeAndOrder.order = event.order;
+  }
+  timeAndOrder.time = event.time;
+  if(goTab){
+    dataSave.detail = {
+      go:timeAndOrder
+    }
+  }else{
+    dataSave.detail = {
+      back:timeAndOrder
+    }
+  }
+  if(insert){
+    dataSave._createTime = new Date().getTime()
+    return await db.collection("stations").add({
+      data: dataSave
+    })
+  }else{
+    return await db.collection("stations").doc(event._id).update({
+      data:dataSave
+    })
   }
 }

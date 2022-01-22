@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="tips">您的支持和宝贵意见是我们不断前进的动力</view>
+  <view style="margin-top: 30rpx;">
+    <van-cell-group>
+                <van-field
+            model:value="{{newMessage}}"
+            type="textarea"
+            placeholder="在这里填写您的建议或反馈"
+            autosize
+            clickable
+            clearable
+            maxlength="256"
+            show-word-limit="true"
+            border="{{ true }}"
+        />
+    </van-cell-group>
+  </view>
+    <button class="mainbtn"  bindtap="submitFeedback">提交</button>
+    <van-toast id="van-toast" />
+</view>

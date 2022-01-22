@@ -23,9 +23,9 @@ Page({
     },
     info: { // 地图点位信息
       address: '-', // 常规地址
-      adinfo: '-', // 行政区
-      formatted: '-', // 推荐地址
-      location: '-' // 经纬度
+      adinfo: '', // 行政区
+      formatted: '', // 推荐地址
+      location: '' // 经纬度
     }
   },
   bindTimeChange(event){

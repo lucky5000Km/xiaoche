@@ -23,7 +23,9 @@
         <van-swipe-cell  right-width="{{ 65 }}" disabled="false">
         <view class="habit {{selectedIndex==index?'gray':''}}" >
             <view class="avatar">
-              <image class="text-center" style="width: 90rpx; height: 90rpx; "  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{item.avatarUrl}}" class="text-center" style="width: 90rpx; height: 90rpx; "  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{!item.avatarUrl}}" class="text-center" style="width: 90rpx; height: 90rpx; "  src="../../../asset/avatar.jpg" mode="aspectFit" />
+              
             </view>
             <view class="info text-center">
               <view class="title">{{item.nickName}}</view>
@@ -62,7 +64,11 @@
       <block wx:for="{{userList.DRIVER}}" wx:key="_id">
         <view class="habit {{selectedIndex==index?'gray':''}}" >
             <view class="info">
-              <image style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image  wx:if="{{item.avatarUrl}}"  style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{!item.avatarUrl}}" style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="../../../asset/avatar.jpg" mode="aspectFit" />
+            </view>
+            <view class="info">
+              <view class="title">{{item.username}}</view>
             </view>
             <view class="info">
               <view class="title">{{item.nickName}}</view>
@@ -95,7 +101,8 @@
       <block wx:for="{{userList.ADMIN}}" wx:key="_id">
         <view class="habit {{selectedIndex==index?'gray':''}}" >
             <view class="info">
-              <image style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image  wx:if="{{item.avatarUrl}}"  style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{!item.avatarUrl}}" style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="../../../asset/avatar.jpg" mode="aspectFit" />
             </view>
             <view class="info">
               <view class="title">{{item.username}}</view>

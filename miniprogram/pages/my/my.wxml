@@ -33,7 +33,7 @@
     <span class="menuTitle">站点管理</span>
     <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>
   </view>
-  <view class="menuItem">
+  <view class="menuItem" bindtap="toUserManagePage">
     <span class="menuIcon"><van-icon name="friends-o" size="40rpx" color="#84c4ef"/></span>
     <span class="menuTitle">账号审核</span>
     <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>

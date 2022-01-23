@@ -17,7 +17,7 @@ const configs = require('./configs/index');
 
 const getLastedNotice = require('./notice/getLastedNotice');
 const addNotice = require('./notice/addNotice');
-
+const userList = require('./user/list')
 
 exports.main = async (event, context) => {
   if (event.type === 'address') { // 文字地址到经纬度转换
@@ -60,6 +60,10 @@ exports.main = async (event, context) => {
     return await configs.getNotify(event,context);
   }else if(event.type === 'updateNotify'){
     return await configs.updateNotify(event,context);
+  }else if(event.type === 'userList'){
+    return await userList.main(event,context);
+  }else if(event.type === 'updateUserStat'){
+    return await userList.updateUserStat(event,context);
   }
   else {
     return {

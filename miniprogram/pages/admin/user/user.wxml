@@ -1,0 +1,36 @@
+<!--pages/admin/user/user.wxml-->
+<view>
+<block>
+  <view class="gray habit" >
+        <view class="info">
+          <view class="title">头像</view>
+        </view>
+        <view class="info">
+          <view class="title">微信名</view>
+        </view>
+        <view class="info">
+          <view class="title">宝贝名字</view>
+        </view>
+        <view class="info">
+          <view class="title">是否激活</view>
+        </view>
+  </view>
+</block>
+  <block wx:for="{{userList}}" wx:key="_id">
+    <view class="habit {{selectedIndex==index?'gray':''}}" >
+        <view class="info">
+          <image style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+        </view>
+        <view class="info">
+          <view class="title">{{item.nickName}}</view>
+        </view>
+        <view class="info">
+          <view class="title">{{item.kid_name}}</view>
+        </view>
+        <view class="info">
+          <switch checked="{{!item.disable}}" data-item="{{item}}" bindchange="switchEnableUser"/>
+        </view>
+    </view>
+  </block>
+
+</view>

@@ -9,7 +9,9 @@
     "pages/my/my",
     "pages/stationsproxy/stationsproxy",
     "pages/notice/notice",
-    "pages/station-manage/station-manage"
+    "pages/station-manage/station-manage",
+    "pages/admin/user/user"
+
   ],
   "permission": {
     "scope.userLocation": {

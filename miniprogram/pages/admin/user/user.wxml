@@ -19,8 +19,7 @@
       </view>
     </block>
       <scroll-view scroll-y="true" class="box-scroll">
-      <block  wx:for="{{userList.PARENT}}" wx:key="_id">
-        <van-swipe-cell  right-width="{{ 65 }}" disabled="false">
+      <van-swipe-cell right-width="{{ 65 }}"  wx:for="{{userList.PARENT}}" wx:key="_id">
         <view class="habit {{selectedIndex==index?'gray':''}}" >
             <view class="avatar">
               <image wx:if="{{item.avatarUrl}}" class="text-center" style="width: 90rpx; height: 90rpx; "  src="{{item.avatarUrl}}" mode="aspectFit" />
@@ -40,7 +39,6 @@
         
         <view slot="right" data-item="{{item}}" class="van-swipe-cell__right" bindtap="deleteUser" >删除</view>
       </van-swipe-cell>
-      </block>
       <view style="text-align:center;height: 10vh;">后面没有东西了</view>
       </scroll-view>
   </van-tab>

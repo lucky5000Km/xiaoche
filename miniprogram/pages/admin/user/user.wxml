@@ -1,8 +1,8 @@
-<van-sticky>
-<van-tabs sticky active="{{ active }}" bind:change="changeTab">
+<van-sticky class="box">
+<van-tabs  style="height: 100vh;"  sticky active="{{ active }}" bind:change="changeTab">
   <van-tab title="家长">
     <block>
-      <view class="gray habit text-center">
+      <view class="gray habit text-center box-head">
             <view class="avatar-title" >
               <view class="title">头像</view>
             </view>
@@ -18,7 +18,9 @@
            
       </view>
     </block>
-      <van-swipe-cell right-width="{{ 65 }}" wx:for="{{userList.PARENT}}" wx:key="_id">
+      <scroll-view scroll-y="true" class="box-scroll">
+      <block  wx:for="{{userList.PARENT}}" wx:key="_id">
+        <van-swipe-cell  right-width="{{ 65 }}" disabled="false">
         <view class="habit {{selectedIndex==index?'gray':''}}" >
             <view class="avatar">
               <image class="text-center" style="width: 90rpx; height: 90rpx; "  src="{{item.avatarUrl}}" mode="aspectFit" />
@@ -36,10 +38,13 @@
         
         <view slot="right" data-item="{{item}}" class="van-swipe-cell__right" bindtap="deleteUser" >删除</view>
       </van-swipe-cell>
+      </block>
+      <view style="text-align:center;height: 10vh;">后面没有东西了</view>
+      </scroll-view>
   </van-tab>
   <van-tab title="司机">
     <block>
-      <view class="gray habit" >
+      <view class="gray habit box-head" >
             <view class="info">
               <view class="title">头像</view>
             </view>
@@ -71,7 +76,7 @@
   </van-tab>
   <van-tab title="管理员">
     <block>
-      <view class="gray habit" >
+      <view class="gray habit box-head" >
             
             <view class="info">
               <view class="title">头像</view>

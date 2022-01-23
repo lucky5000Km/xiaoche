@@ -40,8 +40,23 @@
     width: 40rpx;
     height: 40rpx;
   }
+
+  .habitlist .avatar {
+    width: 90rpx;
+    height: 90rpx;
+  }
+.avatar-title {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  margin: 25rpx 0rpx;
+  font-size: 30rpx;
+  }
   .habitlist {
     position: relative;
+  }
+  .text-center{
+    text-align: center;
   }
   .kelong {
     z-index: 999;
@@ -51,3 +66,12 @@
   .gray {
     background-color: #efecec;
   }
+
+.van-swipe-cell__right{
+  display: inline-block;
+  width: 65px;
+  color: #fff;
+  text-align: center;
+  background-color: #f44;
+  line-height: 65px;
+}

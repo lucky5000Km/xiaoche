@@ -2,11 +2,10 @@
 <van-tabs sticky active="{{ active }}" bind:change="changeTab">
   <van-tab title="上学"></van-tab>
   <van-tab title="回家"></van-tab>
-
 </van-tabs>
 </van-sticky>
 
-<view style="">
+<view>
   <top-title toptitle="排序习惯" backImgFlag="true"></top-title>
   <view class="habitlist">
     <!-- 克隆当前拖拽的项 -->

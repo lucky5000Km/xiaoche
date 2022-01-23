@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userList:[]
+    userList:{}
   },
 
   /**
@@ -20,7 +20,7 @@ Page({
     var result =   await callCouldFun("userList",{});
     console.log('get result of user %s',JSON.stringify(result))
     this.setData({
-      userList: result.result.data
+      userList: result.result
     })
   },
   async switchEnableUser(e) {
@@ -30,6 +30,12 @@ Page({
   
 
   },
+  async deleteUser(e) {
+    console.log('delete user value %s , id %s',e.detail.value,e.target.dataset.item._id)
+    var result = await callCouldFun('deleteUser',{id:e.target.dataset.item._id})
+    console.log('delete user result %s',JSON.stringify(result))
+    this.getUserList()
+   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

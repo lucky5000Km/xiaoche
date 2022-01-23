@@ -1,12 +1,3 @@
-<!-- <image class="topimg" style="width:60px;height:60px" src="{{userInfo.avatarUrl}}"></image>
-
-<view class="container">
-  <view class="page-body">
-		<view>宝贝名字：{{userInfo.kid_name}}</view>
-	<button class="mainbtn"  bindtap="logout">退出登录</button>
-	<button class="mainbtn" wx:if="{{isManager}}" bindtap="toNoticePage">修改公告</button> 
-	</view>
-</view> -->
 <view class="area">
   <view style="margin-top: 80rpx;">
     <van-row gutter="20" style="height: 3rem">
@@ -27,7 +18,7 @@
     </van-row>
   </view>
 </view>
-<view class="menu">
+<view class="menu" wx:if="{{isManager}}">
   <view class="menuItem" bindtap="toStationManagePage">
     <span class="menuIcon"><van-icon name="guide-o" size="40rpx" color="#84c4ef"/></span>
     <span class="menuTitle">站点管理</span>
@@ -46,9 +37,11 @@
 </view>
 
 <view class="menu">
-  <view class="menuItem">
+  <view class="menuItem"  bindtap="toFeedbackPage">
     <span class="menuIcon"><van-icon name="chat-o" size="40rpx" color="#84c4ef"/></span>
     <span class="menuTitle">意见反馈</span>
     <span class="menuArrow"><van-icon name="arrow" size="40rpx" /></span>
   </view>
 </view>
+
+<van-dialog id="van-dialog" />

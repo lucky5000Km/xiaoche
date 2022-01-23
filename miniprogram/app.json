@@ -10,8 +10,8 @@
     "pages/stationsproxy/stationsproxy",
     "pages/notice/notice",
     "pages/station-manage/station-manage",
-    "pages/admin/user/user"
-
+    "pages/admin/user/user",
+    "pages/feedback/feedback"
   ],
   "permission": {
     "scope.userLocation": {
@@ -33,7 +33,7 @@
         "selectedIconPath": "asset/location-active.png"
       },
       {
-        "pagePath": "pages/stationsproxy/stationsproxy",
+        "pagePath": "pages/timetable/timetable",
         "text": "站点",
         "iconPath": "asset/station.png",
         "selectedIconPath": "asset/station-active.png"
@@ -61,6 +61,7 @@
     "van-tabs": "@vant/weapp/tabs/index",
     "van-goods-action": "@vant/weapp/goods-action/index",
     "van-goods-action-button": "@vant/weapp/goods-action-button/index",
-    "van-sticky": "@vant/weapp/sticky/index"
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   }
 }

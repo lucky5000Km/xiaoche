@@ -1,5 +1,6 @@
 const app = getApp()
 const getUserType = require('./../../common').getUserType;
+import Dialog from './../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Page({
   data: {
    userInfo:{},
@@ -28,27 +29,42 @@ Page({
   },
 
   logout () {
-    wx.removeStorage({
-      key: 'token',
-      success(){
-        wx.showToast({
-          title: '退出成功',
-          icon: 'success',
-          duration: 3000,
+    Dialog.confirm({
+      title: '',
+      message: '确认要退出吗？',
+    })
+      .then(() => {
+        wx.removeStorage({
+          key: 'token',
           success(){
-            wx.redirectTo({
-              url: '../index/index'
+            wx.showToast({
+              title: '退出成功',
+              icon: 'success',
+              duration: 3000,
+              success(){
+                wx.redirectTo({
+                  url: '../index/index'
+                })
+              }
             })
           }
         })
-      }
-    })
+      })
+      .catch(() => {
+        // on cancel
+      });
 
   },
   toNoticePage(){
     this.pageRouter.navigateTo({
       url: './../notice/notice'
     });
+  },
+
+  toFeedbackPage(){
+    this.pageRouter.navigateTo({
+      url: './../feedback/feedback'
+    })
   },
   
   onShareAppMessage () {

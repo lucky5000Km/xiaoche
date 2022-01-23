@@ -20,7 +20,8 @@
  	 <van-field
 	  	label="经纬度"
     	value="{{info.location}}"
-		disabled
+			placeholder="拖动地图上的图标"
+			disabled
     	border="{{ true }}"
   	/>
 	</van-cell-group>
@@ -35,6 +36,7 @@
 	  				label="到站时间"
     				value="{{info.adinfo}}"
 					disabled
+					placeholder="点击选择到站时间"
     				border="{{ true }}"
   			/>
 	</van-cell-group>

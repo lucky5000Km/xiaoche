@@ -8,10 +8,10 @@ Page({
     message:''
   },
   onLoad(){
-    wx.showTabBar({
-      animation: true,
-    })
     var that = this;
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.cloud.callFunction({
       name: 'lbs_server',
       data: {
@@ -22,24 +22,37 @@ Page({
         this.setData({
           ori_stations: resp.result.data
         });
-        this.getNotice();
         that.gotable()
-        
+        wx.hideLoading();
         console.log('get cartitem'+JSON.stringify(resp))
     }).catch((e) => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '加载失败',
+        icon:"error"
+      })
         console.log(e);
     });
   },
   onReady(){
     console.log('get ori '+this.data.ori_stations)
     this.gotable()
-    this.getNotice();
   },
 
   tomap () {
     wx.switchTab({
       url: '../map/map'
     })
+  },
+  changeTab(){
+    this.setData({
+      go: !this.data.go
+    })
+    if(this.data.go){
+      this.gotable();
+    }else{
+      this.backtable();
+    }
   },
   gotable () {
     let goStations = this.data.ori_stations.filter(function(item){

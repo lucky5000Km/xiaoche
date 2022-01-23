@@ -54,6 +54,7 @@ module.exports.getGoTable = (data)=>{
   if(data === undefined || data === null || data.length <= 0){
     return [];
   }
+  console.log(data,"data");
   let goStations = data.filter(function(item){
     return item.detail.go !== undefined
   }).sort(function(a,b){
@@ -92,8 +93,11 @@ module.exports.getBackTable = (data) =>{
   return backStations;
 }
 
-module.exports.toEditStationsPage = (item,goTab) =>{
-  var params = '?goTap='+ (goTab ? 1 : 0);
+module.exports.toEditStationsPage = (item,goTab,maxOrder) =>{
+  var params = '?goTab='+ (goTab ? 1 : 0);
+  if(maxOrder !== undefined && maxOrder !== null){
+    params = params+"&maxOrder="+maxOrder;
+  }
   if(item!== undefined && item!= null && item != {}){
      params = params + '&_id='+item._id+"&name="+item.name+'&departure_time='+item.departure_time+
     '&latitude='+item.latitude+'&longitude='+item.longitude;

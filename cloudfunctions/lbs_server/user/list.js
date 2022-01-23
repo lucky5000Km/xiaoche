@@ -5,18 +5,26 @@ cloud.init({
 });
 const db = cloud.database();
 
-// 获取openId云函数入口函数
 exports.main = async (event, context) => {
   userList = await db.collection('user').get();
   console.log('userlist %s',JSON.stringify(userList))
-  return userList;
+  var result = {
+    'ADMIN' : userList.data.filter(item => item.type === 'ADMIN'),
+    'PARENT' : userList.data.filter(item => item.type === 'PARENT'),
+    'DRIVER' : userList.data.filter(item => item.type === 'DRIVER'),
+  }
+  
+  return result;
 };
 
-exports.updateUserStat = async(event,context) =>{
-   return await db.collection('user').doc(event.id).update({
-     data:{
-       disable: event.disable
-     }
-   })
+exports.deleteUser = async(event,context) =>{
+   return await db.collection('user').doc(event.id).remove()
 }
 
+exports.updateUserStat = async(event,context) =>{
+  return await db.collection('user').doc(event.id).update({
+    data:{
+      disable: event.disable
+    }
+  })
+}

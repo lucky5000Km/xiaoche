@@ -217,7 +217,7 @@ Page({
           }
         }
       }
-      console.log(habitList);
+      console.log(this.data.effListMap);
   
       this.setData({
         habitList: habitList,

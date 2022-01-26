@@ -1,0 +1,122 @@
+<van-sticky class="box">
+<van-tabs  style="height: 100vh;"  sticky active="{{ active }}" bind:change="changeTab">
+  <van-tab title="家长">
+    <block>
+      <view class="gray habit text-center box-head">
+            <view class="avatar-title" >
+              <view class="title">头像</view>
+            </view>
+            <view class="info">
+              <view class="title">微信名</view>
+            </view>
+            <view class="info">
+              <view class="title">宝贝名字</view>
+            </view>
+            <view class="info">
+              <view class="title">是否激活</view>
+            </view>
+           
+      </view>
+    </block>
+      <scroll-view scroll-y="true" class="box-scroll">
+      <van-swipe-cell right-width="{{ 65 }}"  wx:for="{{userList.PARENT}}" wx:key="_id">
+        <view class="habit {{selectedIndex==index?'gray':''}}" >
+            <view class="avatar">
+              <image wx:if="{{item.avatarUrl}}" class="text-center" style="width: 90rpx; height: 90rpx; "  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{!item.avatarUrl}}" class="text-center" style="width: 90rpx; height: 90rpx; "  src="../../../asset/avatar.jpg" mode="aspectFit" />
+              
+            </view>
+            <view class="info text-center">
+              <view class="title">{{item.nickName}}</view>
+            </view>
+            <view class="info text-center">
+              <view class="title">{{item.kid_name}}</view>
+            </view>
+            <view class="info" style="text-align: right;">
+              <switch checked="{{!item.disable}}" data-item="{{item}}" bindchange="switchEnableUser"/>
+            </view>
+        </view>
+        
+        <view slot="right" data-item="{{item}}" class="van-swipe-cell__right" bindtap="deleteUser" >删除</view>
+      </van-swipe-cell>
+      <view style="text-align:center;height: 10vh;">后面没有东西了</view>
+      </scroll-view>
+  </van-tab>
+  <van-tab title="司机">
+    <block>
+      <view class="gray habit box-head" >
+            <view class="info">
+              <view class="title">头像</view>
+            </view>
+            <view class="info">
+              <view class="title">用户名</view>
+            </view>
+            <view class="info">
+              <view class="title">微信名</view>
+            </view>
+            <view class="info">
+              <view class="title">是否激活</view>
+            </view>
+      </view>
+    </block>
+      <block wx:for="{{userList.DRIVER}}" wx:key="_id">
+        <view class="habit {{selectedIndex==index?'gray':''}}" >
+            <view class="info">
+              <image  wx:if="{{item.avatarUrl}}"  style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{!item.avatarUrl}}" style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="../../../asset/avatar.jpg" mode="aspectFit" />
+            </view>
+            <view class="info">
+              <view class="title">{{item.username}}</view>
+            </view>
+            <view class="info">
+              <view class="title">{{item.nickName}}</view>
+            </view>
+           
+            <view class="info">
+              <switch checked="{{!item.disable}}" data-item="{{item}}" bindchange="switchEnableUser"/>
+            </view>
+        </view>
+      </block>
+  </van-tab>
+  <van-tab title="管理员">
+    <block>
+      <view class="gray habit box-head" >
+            
+            <view class="info">
+              <view class="title">头像</view>
+            </view>
+            <view class="info">
+              <view class="title">用户名</view>
+            </view>
+            <view class="info">
+              <view class="title">微信名</view>
+            </view>
+            <view class="info">
+              <view class="title">是否激活</view>
+            </view>
+      </view>
+    </block>
+      <block wx:for="{{userList.ADMIN}}" wx:key="_id">
+        <view class="habit {{selectedIndex==index?'gray':''}}" >
+            <view class="info">
+              <image  wx:if="{{item.avatarUrl}}"  style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="{{item.avatarUrl}}" mode="aspectFit" />
+              <image wx:if="{{!item.avatarUrl}}" style="width: 93rpx; height: 87rpx; display: block; box-sizing: border-box"  src="../../../asset/avatar.jpg" mode="aspectFit" />
+            </view>
+            <view class="info">
+              <view class="title">{{item.username}}</view>
+            </view>
+            <view class="info">
+              <view class="title">{{item.nickName}}</view>
+            </view>
+            
+            <view class="info">
+              <switch checked="{{!item.disable}}" data-item="{{item}}" bindchange="switchEnableUser"/>
+            </view>
+        </view>
+      </block>
+  </van-tab>
+</van-tabs>
+</van-sticky><view>
+
+
+</view>

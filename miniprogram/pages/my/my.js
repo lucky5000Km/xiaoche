@@ -85,6 +85,11 @@ Page({
     this.pageRouter.navigateTo({
       url: './../station-manage/station-manage'
     })
+  },
+  toUserManagePage(){
+    this.pageRouter.navigateTo({
+      url: './../admin/user/user'
+    })
   }
 
 })

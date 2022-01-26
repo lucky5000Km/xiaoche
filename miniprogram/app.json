@@ -10,6 +10,7 @@
     "pages/stationsproxy/stationsproxy",
     "pages/notice/notice",
     "pages/station-manage/station-manage",
+    "pages/admin/user/user",
     "pages/feedback/feedback"
   ],
   "permission": {

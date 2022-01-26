@@ -2,7 +2,6 @@
 <van-tabs sticky active="{{ active }}" bind:change="changeTab">
   <van-tab title="上学"></van-tab>
   <van-tab title="回家"></van-tab>
-
 </van-tabs>
 </van-sticky>
 

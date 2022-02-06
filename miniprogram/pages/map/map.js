@@ -156,7 +156,7 @@ Page({
   /**
    * 页面装载回调
    */
-  onShow () {
+  async onShow () {
     that = this // 设置页面this指针到全局that
        //设置屏幕常亮
        wx.setKeepScreenOn({
@@ -167,14 +167,41 @@ Page({
       lastUpdateLocationDate: new Date()
     })
 
-   
+    const openTime = await wx.getStorageSync('open_time');
+    if(openTime === undefined || openTime === null|| openTime.value.length <= 0){
+      wx.showToast({
+        title: '未配置运营时间',
+        icon:'error'
+      })
+      return;
+    }
+    console.log("openTime",openTime);
+    var items = openTime.value;
+    var now = new Date();
+    var nowHour = now.getHours()
+    var nowMin = now.getMinutes();
+    var nowTime = nowHour+":"+nowMin;
+    let goTab = -1;
+    for(var e in items){
+      if(e.begin <= nowTime && e.end >= nowTime){
+        goTab =  e.begin > "12" ? 1 : 2;
+        break;
+      }
+    }
+    if(goTab === -1){
+      wx.showToast({
+        title: '未到运营时间',
+        icon:'none'
+      })
+      return;
+    }
 
     wx.cloud.callFunction({
       name: 'lbs_server',
       data: {
         type: 'stations'
       }
-      }).then((resp) => { 
+      }).then(async (resp) => { 
         let stationList = []
         let res = resp.result.data;
         for(var i=0;i<res.length;i++){

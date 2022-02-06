@@ -23,6 +23,7 @@ exports.main = async (event, context) => {
   var now = new Date().getTime()
   let canQuery = false;
   for(var e in items){
+    console.log(items[e]);
     var begin = items[e].begin.split(':')
     beginTime = date.setHours(begin[0],begin[1],0);
     var end = items[e].end.split(':')

@@ -182,7 +182,8 @@ Page({
     var nowMin = now.getMinutes();
     var nowTime = nowHour+":"+nowMin;
     let goTab = -1;
-    for(var e in items){
+    console.log(items);
+    for(var e of items){
       if(e.begin <= nowTime && e.end >= nowTime){
         goTab =  e.begin > "12" ? 2 : 1;
         break;

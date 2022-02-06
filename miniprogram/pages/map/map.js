@@ -184,7 +184,7 @@ Page({
     let goTab = -1;
     for(var e in items){
       if(e.begin <= nowTime && e.end >= nowTime){
-        goTab =  e.begin > "12" ? 1 : 2;
+        goTab =  e.begin > "12" ? 2 : 1;
         break;
       }
     }
@@ -204,6 +204,9 @@ Page({
       }).then(async (resp) => { 
         let stationList = []
         let res = resp.result.data;
+        res = res.filter(function(item){
+          return goTab === 1 ?  item.detail.go !== undefined : item.detail.back !== undefined;
+        });
         for(var i=0;i<res.length;i++){
           stationList[i] = res[i];
           stationList[i].callout = {

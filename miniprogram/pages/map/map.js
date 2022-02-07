@@ -39,6 +39,9 @@ Page({
       }
       }).then((resp) => {
         //console.log('get polyline info '+JSON.stringify(resp))
+        if(resp.result === null){
+          return;
+        }
         let polylines = resp.result.data.map(function(item){
           return {latitude:item.lat,longitude:item.lon}
         })

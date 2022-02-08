@@ -193,7 +193,7 @@ Page({
     console.log(nowTime);
     for(var e of items){
       if(e.begin <= nowTime && e.end >= nowTime){
-        goTab =  e.begin > "12" ? 2 : 1;
+        goTab =  e.end > "12" ? 2 : 1;
         break;
       }
     }

@@ -182,10 +182,15 @@ Page({
     var items = openTime.value;
     var now = new Date();
     var nowHour = now.getHours()
+    console.log(nowHour);
+    if(nowHour<10){
+      nowHour = '0'+nowHour;
+    }
     var nowMin = now.getMinutes();
     var nowTime = nowHour+":"+nowMin;
     let goTab = -1;
-    console.log(items);
+    console.log("test",items);
+    console.log(nowTime);
     for(var e of items){
       if(e.begin <= nowTime && e.end >= nowTime){
         goTab =  e.begin > "12" ? 2 : 1;

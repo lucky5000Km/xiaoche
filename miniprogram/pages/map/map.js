@@ -32,31 +32,31 @@ Page({
    
   },
   initPolyline(){
-    wx.cloud.callFunction({
-      name: 'lbs_server',
-      data: {
-        type: 'polyline',
-      }
-      }).then((resp) => {
-        //console.log('get polyline info '+JSON.stringify(resp))
-        if(resp.result === null){
-          return;
-        }
-        let polylines = resp.result.data.map(function(item){
-          return {latitude:item.lat,longitude:item.lon}
-        })
-        console.log('polylines %s',JSON.stringify(polylines))
-        that.setData({
-          "polyline": [{
-            points: polylines,
-            color: '#DC143C',
-            width:5,
-            dottedLine: true
-          }]
-        })
-    }).catch((e) => {
-        console.log(e);
-    });// end valid wechat
+    // wx.cloud.callFunction({
+    //   name: 'lbs_server',
+    //   data: {
+    //     type: 'polyline',
+    //   }
+    //   }).then((resp) => {
+    //     //console.log('get polyline info '+JSON.stringify(resp))
+    //     if(resp.result === null){
+    //       return;
+    //     }
+    //     let polylines = resp.result.data.map(function(item){
+    //       return {latitude:item.lat,longitude:item.lon}
+    //     })
+    //     console.log('polylines %s',JSON.stringify(polylines))
+    //     that.setData({
+    //       "polyline": [{
+    //         points: polylines,
+    //         color: '#DC143C',
+    //         width:5,
+    //         dottedLine: true
+    //       }]
+    //     })
+    // }).catch((e) => {
+    //     console.log(e);
+    // });// end valid wechat
   },
 
   // 获取位置信息

@@ -182,7 +182,7 @@ Page({
     var items = openTime.value;
     var now = new Date();
     var nowHour = now.getHours()
-    console.log(nowHour);
+    console.log(nowHour)
     if(nowHour<10){
       nowHour = '0'+nowHour;
     }
@@ -260,7 +260,7 @@ Page({
     wx.getStorage({
       key: 'role',
       success (res) {
-        if('PARENT' === res.data){
+        if('PARENT' === res.data || 'ADMIN' === res.data){
           that.getLastLocation()
           var period = 30;
           try {

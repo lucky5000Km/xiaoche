@@ -77,7 +77,7 @@ Page({
     var userName = await getUserType();
     console.log('getUserName...',userName)
     this.setData({
-      isManager: userName!== undefined &&(userName === 'ADMIN' || userName ==='DRIVE')
+      isManager: userName!== undefined &&(userName === 'ADMIN')
     })
   },
 
